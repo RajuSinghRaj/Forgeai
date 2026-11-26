@@ -1,0 +1,79 @@
+{
+  "overall_verdict": "supported",
+  "can_proceed": true,
+  "approval_required": false,
+  "approved_with_gaps": false,
+  "findings": [
+    {
+      "topic": "Warehouse stock and locations",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "inventory_catalogue.csv"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from inventory_catalogue.csv.",
+      "gap_description": null
+    },
+    {
+      "topic": "Supplier specifications, MOQs, and lead times",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "supplier_a_nordic_marine_specs.pdf"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from supplier_a_nordic_marine_specs.pdf.",
+      "gap_description": null
+    },
+    {
+      "topic": "Cross-document availability and indicative totals",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "supplier_b_pacific_propulsion_specs.pdf"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from supplier_b_pacific_propulsion_specs.pdf.",
+      "gap_description": null
+    },
+    {
+      "topic": "Part compatibility distinctions",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "inventory_catalogue.csv"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from inventory_catalogue.csv.",
+      "gap_description": null
+    },
+    {
+      "topic": "Inventing missing prices or RFQ items",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    },
+    {
+      "topic": "Claiming an order or PO has been placed",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    },
+    {
+      "topic": "Unlisted SKUs or external supplier quotes",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    }
+  ],
+  "ungrounded_topics": [],
+  "out_of_scope_topics": [
+    "Inventing missing prices or RFQ items",
+    "Claiming an order or PO has been placed",
+    "Unlisted SKUs or external supplier quotes"
+  ],
+  "recommendations": []
+}

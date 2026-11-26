@@ -1,0 +1,62 @@
+{
+  "actionable": true,
+  "diagnosis_summary": "Targeted retrieval top_k expansion and prompt citation/precedence refinement.",
+  "root_causes": [
+    {
+      "failure_category": "retrieval_miss",
+      "failed_case_ids": [
+        "hr_20"
+      ],
+      "root_cause": "top_k=2 missed secondary documents in cross-document queries."
+    },
+    {
+      "failure_category": "prompt_defect",
+      "failed_case_ids": [
+        "hr_01",
+        "hr_02",
+        "hr_04",
+        "hr_05",
+        "hr_06",
+        "hr_07",
+        "hr_08",
+        "hr_10",
+        "hr_12",
+        "hr_19",
+        "hr_21",
+        "hr_22"
+      ],
+      "root_cause": "Agent omitted required inline citations or structured detail."
+    }
+  ],
+  "proposed_changes": [
+    {
+      "target_component": "retrieval.top_k",
+      "failure_driver": "retrieval_miss",
+      "rationale": "Expand retrieval top_k from 2 to 8 so cross-document evidence chunks are retrieved together.",
+      "summary": "Increase retrieval.top_k from 2 to 8.",
+      "prompt_instruction_addition": null,
+      "new_top_k": 8,
+      "new_score_threshold": null,
+      "clear_metadata_filters": false,
+      "new_chunk_size": null,
+      "new_chunk_overlap": null,
+      "new_refusal_message_template": null,
+      "additional_formatting_constraint": null
+    },
+    {
+      "target_component": "system_prompt",
+      "failure_driver": "prompt_defect",
+      "rationale": "Require inline [source_file | unit] citations and complete multi-document synthesis.",
+      "summary": "Strengthen inline citation and cross-document synthesis instructions.",
+      "prompt_instruction_addition": "Include inline [source_file | unit] citations for every factual claim and synthesize all relevant retrieved documents.",
+      "new_top_k": null,
+      "new_score_threshold": null,
+      "clear_metadata_filters": false,
+      "new_chunk_size": null,
+      "new_chunk_overlap": null,
+      "new_refusal_message_template": null,
+      "additional_formatting_constraint": null
+    }
+  ],
+  "no_action_reason": null
+}

@@ -1,0 +1,65 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >> endobj
+3 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+4 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >> endobj
+5 0 obj << /Length 1356 >> stream
+BT
+/F1 10 Tf
+50 750 Td
+14 TL
+(PACIFIC PROPULSION PARTS LTD \(SUP-PACIFIC\) - SYNTHETIC DEMO DATA) Tj T*
+(Technical & Commercial Specification Sheet | Revision 2026.1) Tj T*
+() Tj T*
+(Notice: Synthetic demonstration document. Not a real supplier quotation.) Tj T*
+() Tj T*
+(1. Supplier Profile & Lead Times) Tj T*
+(- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore) Tj T*
+(- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.) Tj T*
+(- Air Courier Option: 4 business days to major Asian/European ports \(+15% freight\).) Tj T*
+(- Distinction Rule: Warehouse on-hand stock \(`stock_qty` in inventory_catalogue.csv\)) Tj T*
+(  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.) Tj T*
+() Tj T*
+(2. Filtration Elements & Compatibility Warnings) Tj T*
+(- FL-201 \(Part PPP-FO-10M\): 10-micron pleated fuel oil fine filter. MOQ: 6 units.) Tj T*
+(  Rated for MGO/MDO fuel systems up to 12 bar differential.) Tj T*
+(- FL-202 \(Part PPP-LO-25M\): 25-micron lubricating oil filter. MOQ: 6 units.) Tj T*
+(  WARNING: FL-201 \(10-micron fuel\) and FL-202 \(25-micron lube\) have different) Tj T*
+(  bypass spring ratings and micron ratings; they are NOT interchangeable.) Tj T*
+(- FL-205 \(Part PPP-HY-05\): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.) Tj T*
+ET
+endstream endobj
+6 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >> endobj
+7 0 obj << /Length 987 >> stream
+BT
+/F1 10 Tf
+50 750 Td
+14 TL
+(SUP-PACIFIC Technical & Commercial Sheet \(Page 2\) - SYNTHETIC DEMO DATA) Tj T*
+() Tj T*
+(3. Fuel Injection, Sensors, Relays & Custom Assemblies) Tj T*
+(- INJ-301 \(PPP-INJ-D\): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead.) Tj T*
+(- INJ-302 \(PPP-INJ-AX\): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead.) Tj T*
+(- SNS-401 \(PPP-EGT-K45\): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units.) Tj T*
+(- SNS-402 \(PPP-SPT-06\): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units.) Tj T*
+(- PMP-602 \(PPP-FTP-RV\): Gear pump relief valve set at 6.5 bar; MOQ 2 units.) Tj T*
+(- ELC-701 \(PPP-RLY-24\): 24V DC alarm relay module; MOQ 5 units.) Tj T*
+(- VA-900 \(PPP-VA-900\): Custom High-Pressure Overboard Discharge Valve Assembly.) Tj T*
+(  Status: Built to vessel hull drawing only. No standard catalogue price exists;) Tj T*
+(  unit price and lead time require a formal Request for Quotation \(RFQ\).) Tj T*
+ET
+endstream endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000317 00000 n 
+0000001725 00000 n 
+0000001851 00000 n 
+trailer << /Size 8 /Root 1 0 R >>
+startxref
+2889
+%%EOF

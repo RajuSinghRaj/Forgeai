@@ -1,0 +1,16 @@
+{
+  "response_format": "markdown",
+  "require_citations": true,
+  "citation_format": "[source_file | unit]",
+  "refusal_message_template": "I cannot answer this request based on the provided HR policy documents and scope.",
+  "max_response_words": 300,
+  "response_sections": [
+    "Answer",
+    "Eligibility & Conditions",
+    "Sources"
+  ],
+  "required_fields": [],
+  "optional_fields": [],
+  "formatting_constraints": [],
+  "validation_rules": []
+}

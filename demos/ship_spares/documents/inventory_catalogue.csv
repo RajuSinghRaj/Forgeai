@@ -1,0 +1,19 @@
+item_id,description,category,stock_qty,unit_price,currency,warehouse_location,supplier_id,supplier_name,part_number,stock_status_note
+MV-101,Main Engine Cooling Pump Mechanical Seal 65mm,Mechanical Seals,2,420.00,USD,Rotterdam-A3,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-65-ME,On-hand warehouse stock; supplier MOQ applies to new POs
+MV-102,Auxiliary Bilge Pump Mechanical Seal 40mm,Mechanical Seals,8,185.00,USD,Rotterdam-A4,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-40-AB,On-hand warehouse stock available
+MV-105,Main Engine Jacket Water Thermostat 82C,Cooling Valves,4,310.00,USD,Rotterdam-B1,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-TW-82,On-hand warehouse stock available
+MV-108,Freshwater Generator Plate Gasket Set (10-pack),Gaskets,0,260.00,USD,Rotterdam-B2,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-FWG-10,Zero warehouse stock; supplier replenishment required
+FL-201,Fuel Oil Fine Filter Element 10-Micron,Filtration,12,48.00,USD,Singapore-C1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-FO-10M,On-hand warehouse stock; not interchangeable with FL-202
+FL-202,Lubricating Oil Filter Element 25-Micron,Filtration,3,62.00,USD,Singapore-C2,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-LO-25M,Low warehouse stock; distinct 25-micron lube specification
+FL-205,Hydraulic Steering Return Filter Cartridge,Filtration,0,95.00,USD,Singapore-C4,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-HY-05,Zero warehouse stock; check supplier MOQ and lead time
+INJ-301,Main Engine Fuel Injector Nozzle Tip Type-D,Fuel Injection,6,540.00,USD,Singapore-D1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-INJ-D,On-hand warehouse stock available
+INJ-302,Auxiliary Generator Injector Assembly,Fuel Injection,1,790.00,USD,Singapore-D2,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-INJ-AX,Critical low stock (1 unit remaining)
+SNS-401,Exhaust Gas Thermocouple Sensor Type-K 450mm,Sensors,9,130.00,USD,Singapore-E1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-EGT-K45,On-hand warehouse stock available
+SNS-402,Scavenge Air Pressure Transmitter 0-6 Bar,Sensors,0,215.00,USD,Singapore-E2,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-SPT-06,Zero warehouse stock; supplier replenishment required
+BRG-501,Turbocharger Rotor Thrust Bearing Kit,Bearings,2,1450.00,USD,Rotterdam-C1,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-TCB-501,On-hand warehouse stock available
+BRG-502,Stern Tube Aft Seal Lip Ring 320mm,Mechanical Seals,0,980.00,USD,Rotterdam-C2,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-ST-320,Zero warehouse stock; check supplier lead time
+PMP-601,Sea Water Ballast Pump Impeller Bronze,Pumps,5,390.00,USD,Rotterdam-D1,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-IMP-601,On-hand warehouse stock available
+PMP-602,Fuel Transfer Gear Pump Relief Valve,Pumps,3,275.00,USD,Singapore-F1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-FTP-RV,On-hand warehouse stock available
+ELC-701,24V DC Engine Room Alarm Relay Module,Electrical,14,75.00,USD,Singapore-G1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-RLY-24,On-hand warehouse stock available
+ELC-702,Automatic Voltage Regulator AVR-M400,Electrical,1,680.00,USD,Rotterdam-E3,SUP-NORDIC,Nordic Marine Spares GmbH,NMS-AVR-400,Critical low stock (1 unit remaining)
+VA-900,Custom High-Pressure Overboard Discharge Valve Assembly,Valves,0,,USD,Rotterdam-F1,SUP-PACIFIC,Pacific Propulsion Parts Ltd,PPP-VA-900,Zero stock and no catalogue price; formal supplier RFQ required

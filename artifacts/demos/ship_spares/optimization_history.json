@@ -1,0 +1,112 @@
+[
+  {
+    "iteration": 1,
+    "diagnosis_summary": "Targeted retrieval top_k expansion and prompt citation/precedence refinement.",
+    "observed_failure_categories": [
+      "retrieval_miss",
+      "prompt_defect"
+    ],
+    "failed_case_ids": [
+      "sh_01",
+      "sh_12",
+      "sh_18",
+      "sh_06",
+      "sh_08",
+      "sh_11"
+    ],
+    "proposed_changes": [
+      {
+        "target_component": "retrieval.top_k",
+        "failure_driver": "retrieval_miss",
+        "rationale": "Expand retrieval top_k from 2 to 8 so cross-document evidence chunks are retrieved together.",
+        "summary": "Increase retrieval.top_k from 2 to 8."
+      },
+      {
+        "target_component": "system_prompt",
+        "failure_driver": "prompt_defect",
+        "rationale": "Require inline [source_file | unit] citations and complete multi-document synthesis.",
+        "summary": "Strengthen inline citation and cross-document synthesis instructions."
+      }
+    ],
+    "targeted_changes": [
+      {
+        "target_component": "retrieval.top_k",
+        "failure_driver": "retrieval_miss",
+        "rationale": "Expand retrieval top_k from 2 to 8 so cross-document evidence chunks are retrieved together.",
+        "summary": "Increase retrieval.top_k from 2 to 8."
+      },
+      {
+        "target_component": "system_prompt",
+        "failure_driver": "prompt_defect",
+        "rationale": "Require inline [source_file | unit] citations and complete multi-document synthesis.",
+        "summary": "Strengthen inline citation and cross-document synthesis instructions."
+      }
+    ],
+    "rejected_changes": [],
+    "before_scorecard": {
+      "iteration": 0,
+      "total_cases": 22,
+      "passed_cases": 16,
+      "failed_cases": 6,
+      "pass_rate": 0.7273,
+      "answerable_accuracy": 0.5833,
+      "out_of_scope_refusal_accuracy": 1.0,
+      "edge_case_accuracy": 0.8,
+      "grounding_rate": 1.0,
+      "citation_accuracy": 1.0,
+      "contract_compliance_rate": 1.0,
+      "avg_grounding_score": 0.9727,
+      "avg_correctness_score": 0.8477,
+      "refusal_accuracy": 1.0,
+      "failure_counts": {
+        "retrieval_miss": 3,
+        "prompt_defect": 3,
+        "hallucination": 0,
+        "wrong_refusal": 0
+      }
+    },
+    "after_scorecard": {
+      "iteration": 1,
+      "total_cases": 22,
+      "passed_cases": 20,
+      "failed_cases": 2,
+      "pass_rate": 0.9091,
+      "answerable_accuracy": 0.8333,
+      "out_of_scope_refusal_accuracy": 1.0,
+      "edge_case_accuracy": 1.0,
+      "grounding_rate": 1.0,
+      "citation_accuracy": 1.0,
+      "contract_compliance_rate": 1.0,
+      "avg_grounding_score": 0.9909,
+      "avg_correctness_score": 0.9523,
+      "refusal_accuracy": 1.0,
+      "failure_counts": {
+        "retrieval_miss": 2,
+        "prompt_defect": 0,
+        "hallucination": 0,
+        "wrong_refusal": 0
+      }
+    },
+    "metric_deltas": {
+      "pass_rate": 0.1818,
+      "answerable_accuracy": 0.25,
+      "out_of_scope_refusal_accuracy": 0.0,
+      "edge_case_accuracy": 0.2,
+      "grounding_rate": 0.0,
+      "citation_accuracy": 0.0,
+      "contract_compliance_rate": 0.0,
+      "avg_grounding_score": 0.0182,
+      "avg_correctness_score": 0.1046,
+      "refusal_accuracy": 0.0
+    },
+    "accepted": true,
+    "acceptance_reason": "Accepted: pass_rate improved by +0.1818.",
+    "remaining_failed_case_ids": [
+      "sh_01",
+      "sh_12"
+    ],
+    "agent_version_before": 1,
+    "agent_version_after": 2,
+    "stop_reason": "target_pass_rate_achieved"
+  }
+]

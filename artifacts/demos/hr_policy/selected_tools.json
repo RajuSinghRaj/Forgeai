@@ -1,0 +1,36 @@
+[
+  {
+    "name": "retrieve_documents",
+    "purpose": "Semantic search across HR policy PDFs and Markdown files.",
+    "config": {
+      "reason": "Required to ground every policy answer in official documents.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  },
+  {
+    "name": "list_corpus_documents",
+    "purpose": "Verify which HR policy documents exist in the corpus.",
+    "config": {
+      "reason": "Prevents hallucinating missing policy documents.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+]

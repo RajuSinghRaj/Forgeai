@@ -1,0 +1,83 @@
+[
+  {
+    "name": "retrieve_documents",
+    "purpose": "Search supplier PDF specifications and indexed catalogue records.",
+    "config": {
+      "reason": "Needed for supplier specs, MOQs, lead times, and compatibility rules.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  },
+  {
+    "name": "inspect_csv_records",
+    "purpose": "Filter and inspect exact rows from inventory_catalogue.csv.",
+    "config": {
+      "reason": "Required for exact SKU stock, unit price, and warehouse location lookup.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {
+          "file_name": {
+            "type": "string"
+          },
+          "column": {
+            "type": "string"
+          },
+          "contains": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "file_name"
+        ]
+      }
+    }
+  },
+  {
+    "name": "calculate_math",
+    "purpose": "Compute MOQ totals, indicative prices, and freight surcharges accurately.",
+    "config": {
+      "reason": "Required by brief for quantity and indicative cost calculations.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "expression"
+        ]
+      }
+    }
+  },
+  {
+    "name": "list_corpus_documents",
+    "purpose": "Verify available supplier documents and inventory files.",
+    "config": {
+      "reason": "Supports complete corpus traceability.",
+      "parameters_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+]

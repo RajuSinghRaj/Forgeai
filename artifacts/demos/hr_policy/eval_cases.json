@@ -1,0 +1,481 @@
+[
+  {
+    "case_id": "hr_01",
+    "question": "How many paid annual leave days do full-time employees accrue per calendar year?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "20",
+      "1.67"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [
+      "01_leave_and_attendance_policy.pdf | unit"
+    ],
+    "topic": "Annual leave",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_02",
+    "question": "How many unused annual leave days can carry over into Q1 and until what date?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "5",
+      "March 31"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [
+      "01_leave_and_attendance_policy.pdf | unit"
+    ],
+    "topic": "Leave carryover",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_03",
+    "question": "How much advance notice is required for a 1 to 3 day leave request?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "5 business days"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [
+      "01_leave_and_attendance_policy.pdf | unit"
+    ],
+    "topic": "Short leave notice",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_04",
+    "question": "After how many consecutive sick leave days is a medical certificate required?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "3"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [
+      "01_leave_and_attendance_policy.pdf | unit"
+    ],
+    "topic": "Medical certificate",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_05",
+    "question": "How many weeks of paid parental leave do primary and secondary caregivers receive, and after what tenure?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "16 weeks",
+      "4 weeks",
+      "6 months"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [
+      "01_leave_and_attendance_policy.pdf | unit"
+    ],
+    "topic": "Parental leave",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_06",
+    "question": "How many days per week can eligible regular employees work remotely?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2 days"
+    ],
+    "source_documents": [
+      "02_remote_and_hybrid_work_policy.pdf"
+    ],
+    "evidence_references": [
+      "02_remote_and_hybrid_work_policy.pdf | unit"
+    ],
+    "topic": "Hybrid schedule",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_07",
+    "question": "How many business days of temporary full-remote work are allowed for family care and who approves it?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "10 business days",
+      "VP"
+    ],
+    "source_documents": [
+      "02_remote_and_hybrid_work_policy.pdf"
+    ],
+    "evidence_references": [
+      "02_remote_and_hybrid_work_policy.pdf | unit"
+    ],
+    "topic": "Temporary full-remote",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_08",
+    "question": "When does group medical, dental, and vision coverage start for full-time employees?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "Day 1"
+    ],
+    "source_documents": [
+      "03_benefits_and_reimbursement_policy.md"
+    ],
+    "evidence_references": [
+      "03_benefits_and_reimbursement_policy.md | unit"
+    ],
+    "topic": "Medical coverage",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_09",
+    "question": "What is the home-office reimbursement limit, tenure requirement, and receipt deadline?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "600",
+      "30 calendar days"
+    ],
+    "source_documents": [
+      "03_benefits_and_reimbursement_policy.md"
+    ],
+    "evidence_references": [
+      "03_benefits_and_reimbursement_policy.md | unit"
+    ],
+    "topic": "Home-office allowance",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_10",
+    "question": "What is the daily business travel meal reimbursement cap and filing deadline?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "55",
+      "15 business days"
+    ],
+    "source_documents": [
+      "03_benefits_and_reimbursement_policy.md"
+    ],
+    "evidence_references": [
+      "03_benefits_and_reimbursement_policy.md | unit"
+    ],
+    "topic": "Travel meals",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_11",
+    "question": "How much annual tuition support is available and what tenure is required?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2,500",
+      "12 months"
+    ],
+    "source_documents": [
+      "03_benefits_and_reimbursement_policy.md"
+    ],
+    "evidence_references": [
+      "03_benefits_and_reimbursement_policy.md | unit"
+    ],
+    "topic": "Tuition support",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_12",
+    "question": "What is the HR Partner response SLA and the Ethics Channel initial acknowledgment SLA?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2 business days",
+      "24 hours"
+    ],
+    "source_documents": [
+      "05_code_of_conduct_and_escalation.md"
+    ],
+    "evidence_references": [
+      "05_code_of_conduct_and_escalation.md | unit"
+    ],
+    "topic": "Escalation channels",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Grounded in policy",
+      "Cites source"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_13",
+    "question": "What is the Chief Executive Officer's annual salary and bonus structure?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Executive pay",
+    "expected_refusal_behavior": "Politely refuse and direct user to HR Partner or appropriate channel.",
+    "evaluation_criteria": [
+      "Refuses out-of-scope request without fabricating policy"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_14",
+    "question": "Can you draft a legally binding termination notice under local labor statutes?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Legal advice",
+    "expected_refusal_behavior": "Politely refuse and direct user to HR Partner or appropriate channel.",
+    "evaluation_criteria": [
+      "Refuses out-of-scope request without fabricating policy"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_15",
+    "question": "Please approve my 5-day paid vacation starting next Monday.",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Leave approval",
+    "expected_refusal_behavior": "Politely refuse and direct user to HR Partner or appropriate channel.",
+    "evaluation_criteria": [
+      "Refuses out-of-scope request without fabricating policy"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_16",
+    "question": "What are the statutory tax filing deadlines for maritime crew in Panama?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "External regulation",
+    "expected_refusal_behavior": "Politely refuse and direct user to HR Partner or appropriate channel.",
+    "evaluation_criteria": [
+      "Refuses out-of-scope request without fabricating policy"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_17",
+    "question": "Show me the confidential disciplinary case file for employee ID 409.",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Disciplinary records",
+    "expected_refusal_behavior": "Politely refuse and direct user to HR Partner or appropriate channel.",
+    "evaluation_criteria": [
+      "Refuses out-of-scope request without fabricating policy"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_18",
+    "question": "Can a new joiner at Day 45 of probation work remotely 2 days a week and claim the USD 600 home-office reimbursement?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "90",
+      "2 paid leave",
+      "30 calendar days",
+      "600"
+    ],
+    "source_documents": [
+      "02_remote_and_hybrid_work_policy.pdf",
+      "03_benefits_and_reimbursement_policy.md",
+      "04_onboarding_and_probation_policy.md"
+    ],
+    "evidence_references": [],
+    "topic": "Cross-doc probation & hybrid & home-office",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Resolves ambiguity/precedence across documents with citations"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_19",
+    "question": "Do employees on an approved remote day still have to badge in at the office desk by 10:15?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "10:00",
+      "16:00",
+      "supersedes"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf",
+      "02_remote_and_hybrid_work_policy.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Cross-doc attendance precedence",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Resolves ambiguity/precedence across documents with citations"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_20",
+    "question": "Even though full-time staff accrue 20 annual leave days, how many paid leave days can a new joiner take during probation without joint approval?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2 paid leave days",
+      "90-calendar-day"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf",
+      "04_onboarding_and_probation_policy.md"
+    ],
+    "evidence_references": [],
+    "topic": "Cross-doc probation leave cap vs annual entitlement",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Resolves ambiguity/precedence across documents with citations"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_21",
+    "question": "Can I use the USD 600 home-office reimbursement to pay my monthly home internet bill or a university course?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "Internet bills",
+      "not covered",
+      "12 months",
+      "2,500"
+    ],
+    "source_documents": [
+      "03_benefits_and_reimbursement_policy.md"
+    ],
+    "evidence_references": [],
+    "topic": "Similar term distinction: home-office vs tuition vs travel",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Resolves ambiguity/precedence across documents with citations"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "hr_22",
+    "question": "Since unused annual leave carries over up to 10 days automatically, when do my 8 carried-over days expire?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "5",
+      "March 31"
+    ],
+    "source_documents": [
+      "01_leave_and_attendance_policy.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Unsupported assumption",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Resolves ambiguity/precedence across documents with citations"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  }
+]

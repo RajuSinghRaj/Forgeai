@@ -1,0 +1,98 @@
+{
+  "overall_verdict": "supported",
+  "can_proceed": true,
+  "approval_required": false,
+  "approved_with_gaps": false,
+  "findings": [
+    {
+      "topic": "Leave and attendance rules",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "01_leave_and_attendance_policy.pdf"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from 01_leave_and_attendance_policy.pdf.",
+      "gap_description": null
+    },
+    {
+      "topic": "Remote and hybrid work eligibility",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "02_remote_and_hybrid_work_policy.pdf"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from 02_remote_and_hybrid_work_policy.pdf.",
+      "gap_description": null
+    },
+    {
+      "topic": "Benefits and reimbursements",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "03_benefits_and_reimbursement_policy.md"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from 03_benefits_and_reimbursement_policy.md.",
+      "gap_description": null
+    },
+    {
+      "topic": "Onboarding and probation rules",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "04_onboarding_and_probation_policy.md"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from 04_onboarding_and_probation_policy.md.",
+      "gap_description": null
+    },
+    {
+      "topic": "Code of conduct escalation",
+      "verdict": "supported",
+      "is_out_of_scope": false,
+      "supporting_sources": [
+        "05_code_of_conduct_and_escalation.md"
+      ],
+      "evidence_summary": "Supported by retrieved chunks from 05_code_of_conduct_and_escalation.md.",
+      "gap_description": null
+    },
+    {
+      "topic": "Legal advice",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    },
+    {
+      "topic": "Binding leave/exception approvals",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    },
+    {
+      "topic": "Executive compensation and confidential disciplinary files",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    },
+    {
+      "topic": "External statutory advice",
+      "verdict": "unsupported",
+      "is_out_of_scope": true,
+      "supporting_sources": [],
+      "evidence_summary": "Explicit refusal / out-of-scope boundary.",
+      "gap_description": "Intentionally out of scope."
+    }
+  ],
+  "ungrounded_topics": [],
+  "out_of_scope_topics": [
+    "Legal advice",
+    "Binding leave/exception approvals",
+    "Executive compensation and confidential disciplinary files",
+    "External statutory advice"
+  ],
+  "recommendations": []
+}

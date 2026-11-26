@@ -1,0 +1,55 @@
+{
+  "execution_mode": "deterministic_mocked_llm_due_to_live_503",
+  "live_gemini_verified": false,
+  "live_gemini_error": "503 UNAVAILABLE (gemini-3.8-flash high demand)",
+  "gemini_model": "gemini-3.8-flash",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "unattended_policy": "proceed_with_assumptions",
+  "run_id": "demo_ship_spares",
+  "stop_reason": "target_pass_rate_achieved",
+  "eval_suite_sha256": "3e5e4fb3f76ecf083e1b1dc39bccdf3fbf4c8178476506eebab1c1b5a07df7b6",
+  "document_count": 3,
+  "unit_count": 22,
+  "artifact_files": [
+    "baseline_agent.json",
+    "baseline_results.json",
+    "baseline_scorecard.json",
+    "brief.txt",
+    "eval_cases.json",
+    "final_agent.json",
+    "final_report.json",
+    "groundability.json",
+    "intake_questions.json",
+    "iteration_1_agent.json",
+    "iteration_1_proposal.json",
+    "iteration_1_results.json",
+    "iteration_1_scorecard.json",
+    "optimization_history.json",
+    "output_contract.json",
+    "requirements.json",
+    "retrieval_and_chunking.json",
+    "selected_tools.json",
+    "unattended_assumptions.json"
+  ],
+  "tool_execution_checks": {
+    "corpus_files": 3,
+    "csv_lookup_mv101": {
+      "_row": "1",
+      "item_id": "MV-101",
+      "description": "Main Engine Cooling Pump Mechanical Seal 65mm",
+      "category": "Mechanical Seals",
+      "stock_qty": "2",
+      "unit_price": "420.00",
+      "currency": "USD",
+      "warehouse_location": "Rotterdam-A3",
+      "supplier_id": "SUP-NORDIC",
+      "supplier_name": "Nordic Marine Spares GmbH",
+      "part_number": "NMS-65-ME",
+      "stock_status_note": "On-hand warehouse stock; supplier MOQ applies to new POs"
+    },
+    "moq_calc_mv101": {
+      "expression": "4 * 420.00",
+      "result": 1680.0
+    }
+  }
+}

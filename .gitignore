@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Secrets & local environment
+.env
+.env.*
+!.env.example
+
+# Generated vector stores and ephemeral run outputs
+.forgeai/
+chroma_db/
+*.sqlite3
+artifacts/runs/
+artifacts/tmp/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+

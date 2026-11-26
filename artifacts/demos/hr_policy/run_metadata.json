@@ -1,0 +1,37 @@
+{
+  "execution_mode": "deterministic_mocked_llm_due_to_live_503",
+  "live_gemini_verified": false,
+  "live_gemini_error": "503 UNAVAILABLE (gemini-3.8-flash high demand)",
+  "gemini_model": "gemini-3.8-flash",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "unattended_policy": "proceed_with_assumptions",
+  "run_id": "demo_hr_policy",
+  "stop_reason": "no_actionable_proposal",
+  "eval_suite_sha256": "64c31fc81ba791c235cf240f57d4b45dc6c961069331c2f894311b2e82ed3567",
+  "document_count": 5,
+  "unit_count": 7,
+  "artifact_files": [
+    "baseline_agent.json",
+    "baseline_results.json",
+    "baseline_scorecard.json",
+    "brief.txt",
+    "eval_cases.json",
+    "final_agent.json",
+    "final_report.json",
+    "groundability.json",
+    "intake_questions.json",
+    "iteration_1_agent.json",
+    "iteration_1_proposal.json",
+    "iteration_1_results.json",
+    "iteration_1_scorecard.json",
+    "optimization_history.json",
+    "output_contract.json",
+    "requirements.json",
+    "retrieval_and_chunking.json",
+    "selected_tools.json",
+    "unattended_assumptions.json"
+  ],
+  "tool_execution_checks": {
+    "corpus_files": 5
+  }
+}

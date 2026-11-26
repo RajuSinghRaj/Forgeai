@@ -1,0 +1,5 @@
+[
+  "Unattended intake assumption for q1 (expected_response_behavior): Should indicative totals clearly note they exclude unquoted freight unless specified?",
+  "Unattended intake assumption for q2 (must_refuse_topics): How should items with missing prices (RFQ required) be handled?",
+  "Unattended intake assumption for q3 (scope): Should warehouse stock always be reported separately from supplier MOQ availability?"
+]

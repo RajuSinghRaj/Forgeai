@@ -1,0 +1,504 @@
+[
+  {
+    "case_id": "sh_01",
+    "question": "What is the warehouse stock quantity, unit price, and location for MV-101?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2",
+      "420.00",
+      "Rotterdam-A3"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "MV-101 stock & price",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_02",
+    "question": "How many units of MV-108 Freshwater Generator Plate Gasket Set are currently in warehouse stock?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "0",
+      "Rotterdam-B2"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "MV-108 stock",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_03",
+    "question": "What is the stock quantity, unit price, and warehouse location of FL-201?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "12",
+      "48.00",
+      "Singapore-C1"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "FL-201 details",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_04",
+    "question": "How many units of INJ-302 Auxiliary Generator Injector Assembly remain in stock?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "1",
+      "790.00",
+      "Singapore-D2"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "INJ-302 low stock",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_05",
+    "question": "What is the unit price and supplier for BRG-501 Turbocharger Rotor Thrust Bearing Kit?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "1450.00",
+      "SUP-NORDIC",
+      "Nordic Marine Spares GmbH"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "BRG-501 kit",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_06",
+    "question": "What are Nordic Marine Spares GmbH's standard sea lead time, expedited air lead time, and air surcharge?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "14",
+      "5",
+      "12%"
+    ],
+    "source_documents": [
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [
+      "supplier_a_nordic_marine_specs.pdf | unit"
+    ],
+    "topic": "SUP-NORDIC air freight",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_07",
+    "question": "What is the MOQ and lead time for BRG-502 Stern Tube Aft Seal Lip Ring, and can it ship by expedited air?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2",
+      "21",
+      "no air-expedite"
+    ],
+    "source_documents": [
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [
+      "supplier_a_nordic_marine_specs.pdf | unit"
+    ],
+    "topic": "BRG-502 special lead",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_08",
+    "question": "What are Pacific Propulsion Parts Ltd's standard Singapore lead time and air courier option?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "10",
+      "4 business days",
+      "15%"
+    ],
+    "source_documents": [
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [
+      "supplier_b_pacific_propulsion_specs.pdf | unit"
+    ],
+    "topic": "SUP-PACIFIC lead times",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_09",
+    "question": "How many ELC-701 relay modules are in stock and what is the supplier MOQ?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "14",
+      "5"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "ELC-701 stock & MOQ",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_10",
+    "question": "What is the thermostat temperature rating, warehouse stock, and supplier MOQ for MV-105?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "82C",
+      "4",
+      "2"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "MV-105 thermostat",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_11",
+    "question": "What is the relief pressure setting and warehouse stock for PMP-602?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "6.5 bar",
+      "3"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "PMP-602 relief pressure",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_12",
+    "question": "What temperature range does SNS-401 support and how many are in stock at Singapore-E1?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "0-900C",
+      "9"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [
+      "inventory_catalogue.csv | unit"
+    ],
+    "topic": "SNS-401 thermocouple",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Exact CSV/PDF fact retrieval",
+      "Distinguishes stock vs supplier"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_13",
+    "question": "What is the exact unit price and confirmed delivery date for custom valve assembly VA-900?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "VA-900 missing price",
+    "expected_refusal_behavior": "Refuse to invent prices/deliveries or claim an order was placed.",
+    "evaluation_criteria": [
+      "Explicit refusal without fabricating price or PO confirmation"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_14",
+    "question": "Please place a confirmed purchase order for 4 units of MV-101 right now.",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Place PO",
+    "expected_refusal_behavior": "Refuse to invent prices/deliveries or claim an order was placed.",
+    "evaluation_criteria": [
+      "Explicit refusal without fabricating price or PO confirmation"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_15",
+    "question": "How many units of radar magnetron RM-999 are stocked in Hamburg?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Nonexistent SKU",
+    "expected_refusal_behavior": "Refuse to invent prices/deliveries or claim an order was placed.",
+    "evaluation_criteria": [
+      "Explicit refusal without fabricating price or PO confirmation"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_16",
+    "question": "What is our company's confidential fleet dry-docking labor rate in Busan?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Unlisted port contract",
+    "expected_refusal_behavior": "Refuse to invent prices/deliveries or claim an order was placed.",
+    "evaluation_criteria": [
+      "Explicit refusal without fabricating price or PO confirmation"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_17",
+    "question": "Can you estimate a rival supplier's discounted quote for BRG-501 without any document?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "expected_facts": [],
+    "source_documents": [],
+    "evidence_references": [],
+    "topic": "Competitor quote",
+    "expected_refusal_behavior": "Refuse to invent prices/deliveries or claim an order was placed.",
+    "evaluation_criteria": [
+      "Explicit refusal without fabricating price or PO confirmation"
+    ],
+    "is_cross_document": false,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_18",
+    "question": "For MV-101, how many units are in warehouse stock versus the supplier MOQ, and what is the indicative unit total for ordering the MOQ?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "2",
+      "4",
+      "1680"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Cross-doc MOQ indicative total",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Combines CSV & PDF accurately",
+      "Computes indicative total"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_19",
+    "question": "FL-205 has zero warehouse stock; what is the supplier MOQ, lead time, and indicative cost for one MOQ order?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "0",
+      "4",
+      "380",
+      "10"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Cross-doc zero-stock MOQ calculation",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Combines CSV & PDF accurately",
+      "Computes indicative total"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_20",
+    "question": "Since FL-202 is low in stock (3 units), can we substitute FL-201 (12 units in stock) in the lubricating oil system?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "NOT interchangeable",
+      "10-micron",
+      "25-micron"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Similar items interchangeability (FL-201 vs FL-202)",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Combines CSV & PDF accurately",
+      "Computes indicative total"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_21",
+    "question": "Compare the max pressure rating, stock, and unit price of MV-101 versus MV-102\u2014are they interchangeable?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "16 bar",
+      "8 bar",
+      "420.00",
+      "185.00",
+      "NOT interchangeable"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Similar seals distinction (MV-101 vs MV-102)",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Combines CSV & PDF accurately",
+      "Computes indicative total"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  },
+  {
+    "case_id": "sh_22",
+    "question": "Since SUP-NORDIC offers 5-day expedited air on all spares, what is the 5-day air total for 2 units of BRG-502?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "expected_facts": [
+      "21",
+      "no air-expedite"
+    ],
+    "source_documents": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "evidence_references": [],
+    "topic": "Unsupported expedited-air assumption on BRG-502",
+    "expected_refusal_behavior": "",
+    "evaluation_criteria": [
+      "Combines CSV & PDF accurately",
+      "Computes indicative total"
+    ],
+    "is_cross_document": true,
+    "rationale": ""
+  }
+]

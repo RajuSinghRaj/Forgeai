@@ -1,0 +1,1979 @@
+[
+  {
+    "case_id": "sh_01",
+    "question": "What is the warehouse stock quantity, unit price, and location for MV-101?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_2): Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available [2] inventory_catalogue.csv (row_3): Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available [3] inventory_catalogue.csv (row_8): Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available [4] inventory_catalogue.csv (row_16): Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available [5] inventory_catalogue.csv (row_12): Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available [6] inventory_catalogue.csv (row_18): Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required [7] inventory_catalogue.csv (row_15): Row 15: item_id: PMP-602 | description: Fu [inventory_catalogue.csv | row_2] [inventory_catalogue.csv | row_3] [inventory_catalogue.csv | row_8] [inventory_catalogue.csv | row_16] [inventory_catalogue.csv | row_12] [inventory_catalogue.csv | row_18]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.42800045013427734
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.43280982971191406
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.458579421043396
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4593740701675415
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4615543484687805
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.4769816994667053
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4774783253669739
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4815934896469116
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv"
+    ],
+    "grounding_score": 0.9,
+    "correctness_score": 0.3,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [
+      "420.00",
+      "Rotterdam-A3"
+    ],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": false,
+    "failure_classification": "retrieval_miss",
+    "judge_reasoning": "Missing facts ['420.00', 'Rotterdam-A3'] or deterministic issues []."
+  },
+  {
+    "case_id": "sh_02",
+    "question": "How many units of MV-108 Freshwater Generator Plate Gasket Set are currently in warehouse stock?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_4): Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required [2] inventory_catalogue.csv (row_9): Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining) [3] inventory_catalogue.csv (row_3): Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available [4] supplier_a_nordic_marine_specs.pdf (page_2): SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA 3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC) - MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time. - MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators; MOQ 2 packs; standard 14-day sea lead time. - BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified; MOQ 1 kit; 14-day standard lead time; 5-day expedited air available. [inventory_catalogue.csv | row_4] [inventory_catalogue.csv | row_9] [inventory_catalogue.csv | row_3] [supplier_a_nordic_marine_specs.pdf | page_2] [inventory_catalogue.csv | row_8] [inventory_catalogue.csv | row_18]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_4:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_4",
+        "text_excerpt": "Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.32375407218933105
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.4523155093193054
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4611639976501465
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.4747670292854309
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4771609306335449
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.4808295965194702
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.49599015712738037
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_10:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_10",
+        "text_excerpt": "Row 10: item_id: SNS-401 | description: Exhaust Gas Thermocouple Sensor Type-K 450mm | category: Sensors | stock_qty: 9 | unit_price: 130.00 | currency: USD | warehouse_location: Singapore-E1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-EGT-K45 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5042915940284729
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_03",
+    "question": "What is the stock quantity, unit price, and warehouse location of FL-201?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_5): Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202 [2] inventory_catalogue.csv (row_15): Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available [3] inventory_catalogue.csv (row_3): Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available [4] inventory_catalogue.csv (row_16): Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available [5] inventory_catalogue.csv (row_6): Row 6: item_id: FL-202 | description: Lubricating Oil Filter Element 25-Micron | category: Filtration | stock_qty: 3 | unit_price: 62.00 | currency: USD | warehouse_location: Singapore-C2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-LO-25M | stock_status_note: Low warehouse stock; distinct 25-micron lube specification [6] inventory_catalogue.csv (row_2): Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available [7] inventory_catalogue.csv (row_7): Row 7: item_id: FL-205 | description: Hydrau [inventory_catalogue.csv | row_5] [inventory_catalogue.csv | row_15] [inventory_catalogue.csv | row_3] [inventory_catalogue.csv | row_16] [inventory_catalogue.csv | row_6] [inventory_catalogue.csv | row_2]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_5:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_5",
+        "text_excerpt": "Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202",
+        "distance": 0.38385939598083496
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4584178924560547
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.46789735555648804
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4732855558395386
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_6:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_6",
+        "text_excerpt": "Row 6: item_id: FL-202 | description: Lubricating Oil Filter Element 25-Micron | category: Filtration | stock_qty: 3 | unit_price: 62.00 | currency: USD | warehouse_location: Singapore-C2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-LO-25M | stock_status_note: Low warehouse stock; distinct 25-micron lube specification",
+        "distance": 0.47547048330307007
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4769941568374634
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_7:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_7",
+        "text_excerpt": "Row 7: item_id: FL-205 | description: Hydraulic Steering Return Filter Cartridge | category: Filtration | stock_qty: 0 | unit_price: 95.00 | currency: USD | warehouse_location: Singapore-C4 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-HY-05 | stock_status_note: Zero warehouse stock; check supplier MOQ and lead time",
+        "distance": 0.48233485221862793
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.488092839717865
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_04",
+    "question": "How many units of INJ-302 Auxiliary Generator Injector Assembly remain in stock?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_9): Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining) [2] inventory_catalogue.csv (row_8): Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available [3] supplier_b_pacific_propulsion_specs.pdf (page_2): SUP-PACIFIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA 3. Fuel Injection, Sensors, Relays & Custom Assemblies - INJ-301 (PPP-INJ-D): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead. - INJ-302 (PPP-INJ-AX): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead. - SNS-401 (PPP-EGT-K45): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units. - SNS-402 (PPP-SPT-06): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units. - PMP-602 (PPP-FTP-RV): Gear pump relief valve set at 6.5 bar; MOQ 2 units. - ELC-701 (PPP-RLY-24): 24V DC alarm relay module; MOQ 5 units. [inventory_catalogue.csv | row_9] [inventory_catalogue.csv | row_8] [supplier_b_pacific_propulsion_specs.pdf | page_2] [supplier_b_pacific_propulsion_specs.pdf | page_2] [inventory_catalogue.csv | row_2] [supplier_a_nordic_marine_specs.pdf | page_2]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.3679742217063904
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5306868553161621
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-PACIFIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Fuel Injection, Sensors, Relays & Custom Assemblies\n- INJ-301 (PPP-INJ-D): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead.\n- INJ-302 (PPP-INJ-AX): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead.\n- SNS-401 (PPP-EGT-K45): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units.\n- SNS-402 (PPP-SPT-06): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units.\n- PMP-602 (PPP-FTP-RV): Gear pump relief valve set at 6.5 bar; MOQ 2 units.\n- ELC-701 (PPP-RLY-24): 24V DC alarm relay module; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.",
+        "distance": 0.5598919987678528
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.6230770349502563
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6351680755615234
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.6424652338027954
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_4:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_4",
+        "text_excerpt": "Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.6470499038696289
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.6484574675559998
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_05",
+    "question": "What is the unit price and supplier for BRG-501 Turbocharger Rotor Thrust Bearing Kit?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_12): Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available [2] supplier_a_nordic_marine_specs.pdf (page_2): SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA 3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC) - MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time. - MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators; MOQ 2 packs; standard 14-day sea lead time. - BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified; MOQ 1 kit; 14-day standard lead time; 5-day expedited air available. - BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day special-molding lead time (no air-expedite shortcut available). [inventory_catalogue.csv | row_12] [supplier_a_nordic_marine_specs.pdf | page_2] [inventory_catalogue.csv | row_18] [inventory_catalogue.csv | row_7] [inventory_catalogue.csv | row_13] [inventory_catalogue.csv | row_9]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.41761255264282227
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.4999380111694336
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.5467146635055542
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_7:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_7",
+        "text_excerpt": "Row 7: item_id: FL-205 | description: Hydraulic Steering Return Filter Cartridge | category: Filtration | stock_qty: 0 | unit_price: 95.00 | currency: USD | warehouse_location: Singapore-C4 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-HY-05 | stock_status_note: Zero warehouse stock; check supplier MOQ and lead time",
+        "distance": 0.5917842388153076
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.604156494140625
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.6053894758224487
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6069351434707642
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_6:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_6",
+        "text_excerpt": "Row 6: item_id: FL-202 | description: Lubricating Oil Filter Element 25-Micron | category: Filtration | stock_qty: 3 | unit_price: 62.00 | currency: USD | warehouse_location: Singapore-C2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-LO-25M | stock_status_note: Low warehouse stock; distinct 25-micron lube specification",
+        "distance": 0.6073315739631653
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_06",
+    "question": "What are Nordic Marine Spares GmbH's standard sea lead time, expedited air lead time, and air surcharge?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] supplier_a_nordic_marine_specs.pdf (page_1): NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA Technical & Commercial Specification Sheet | Revision 2026.1 Notice: Synthetic demonstration document. Not a real supplier quotation. 1. Supplier Profile & Commercial Terms - Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot - Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse. - Indicative Lead Times: 14 calendar days via standard sea/road freight; 5 calendar days via expedited air courier (adds 12% air surcharge on unit total). - Important: Quoted catalogue prices and lead times are indicative only. No order is confirmed until a formal Purchase Order (PO) is acknowledged. [supplier_a_nordic_marine_specs.pdf | page_1] [supplier_a_nordic_marine_specs.pdf | page_2] [inventory_catalogue.csv | row_13] [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_14] [inventory_catalogue.csv | row_2]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Commercial Terms\n- Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot\n- Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse.\n- Indicative Lead Times: 14 calendar days via standard sea/road freight;\n  5 calendar days via expedited air courier (adds 12% air surcharge on unit total).\n- Important: Quoted catalogue prices and lead times are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.",
+        "distance": 0.23178458213806152
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.4300001859664917
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.519649088382721
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.5279207229614258
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5560899972915649
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5825149416923523
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_4:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_4",
+        "text_excerpt": "Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.5894159078598022
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_17:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_17",
+        "text_excerpt": "Row 17: item_id: ELC-702 | description: Automatic Voltage Regulator AVR-M400 | category: Electrical | stock_qty: 1 | unit_price: 680.00 | currency: USD | warehouse_location: Rotterdam-E3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-AVR-400 | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.601464569568634
+      }
+    ],
+    "cited_sources": [
+      "supplier_a_nordic_marine_specs.pdf",
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_07",
+    "question": "What is the MOQ and lead time for BRG-502 Stern Tube Aft Seal Lip Ring, and can it ship by expedited air?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "BRG-502 has 0 warehouse stock, MOQ 2 rings, 21-day special-molding lead time, and no air-expedite shortcut is available [supplier_a_nordic_marine_specs.pdf | page_2] [supplier_a_nordic_marine_specs.pdf | page_2] [inventory_catalogue.csv | row_13] [supplier_b_pacific_propulsion_specs.pdf | page_1] [supplier_a_nordic_marine_specs.pdf | page_1] [supplier_b_pacific_propulsion_specs.pdf | page_2].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "ton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).\n- PMP-601 (NMS-IMP-601): Bronze ballast impeller; MOQ 1 unit; 14-day lead time.\n- ELC-702 (NMS-AVR-400): AVR-M400 voltage regulator; MOQ 1 unit; 14-day lead time.",
+        "distance": 0.45492029190063477
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.49448972940444946
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.5876201391220093
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.5945316553115845
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.6489214897155762
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.6491544246673584
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.6597452163696289
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.6797714233398438
+      }
+    ],
+    "cited_sources": [
+      "supplier_a_nordic_marine_specs.pdf",
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_08",
+    "question": "What are Pacific Propulsion Parts Ltd's standard Singapore lead time and air courier option?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] supplier_b_pacific_propulsion_specs.pdf (page_1): PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA Technical & Commercial Specification Sheet | Revision 2026.1 Notice: Synthetic demonstration document. Not a real supplier quotation. 1. Supplier Profile & Lead Times - Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore - Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs. - Air Courier Option: 4 business days to major Asian/European ports (+15% freight). - Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv) is immediately issuable; supplier replenishment requires PO + MOQ + lead time. 2. Filtration Elements & Compatibility Warnings [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_7] [inventory_catalogue.csv | row_10] [inventory_catalogue.csv | row_15] [inventory_catalogue.csv | row_11] [inventory_catalogue.csv | row_5]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.2635355591773987
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_7:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_7",
+        "text_excerpt": "Row 7: item_id: FL-205 | description: Hydraulic Steering Return Filter Cartridge | category: Filtration | stock_qty: 0 | unit_price: 95.00 | currency: USD | warehouse_location: Singapore-C4 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-HY-05 | stock_status_note: Zero warehouse stock; check supplier MOQ and lead time",
+        "distance": 0.48562151193618774
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_10:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_10",
+        "text_excerpt": "Row 10: item_id: SNS-401 | description: Exhaust Gas Thermocouple Sensor Type-K 450mm | category: Sensors | stock_qty: 9 | unit_price: 130.00 | currency: USD | warehouse_location: Singapore-E1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-EGT-K45 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4875030517578125
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4881913661956787
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.4967435598373413
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_5:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_5",
+        "text_excerpt": "Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202",
+        "distance": 0.5068522691726685
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.5107903480529785
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5281345844268799
+      }
+    ],
+    "cited_sources": [
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "inventory_catalogue.csv"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_09",
+    "question": "How many ELC-701 relay modules are in stock and what is the supplier MOQ?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_16): Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available [2] supplier_a_nordic_marine_specs.pdf (page_1): es are indicative only. No order is confirmed until a formal Purchase Order (PO) is acknowledged. 2. Mechanical Seals (MV-101 & MV-102) - MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units. - MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps. Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101. [3] inventory_catalogue.csv (row_1): Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs [4] supplier_a_nordic_marine_specs.pdf (page_2): ton lip ring; MOQ 2 rings; 21-day [inventory_catalogue.csv | row_16] [supplier_a_nordic_marine_specs.pdf | page_1] [inventory_catalogue.csv | row_1] [supplier_a_nordic_marine_specs.pdf | page_2] [supplier_a_nordic_marine_specs.pdf | page_2] [inventory_catalogue.csv | row_17]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.43779700994491577
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.514309287071228
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.5164161920547485
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "ton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).\n- PMP-601 (NMS-IMP-601): Bronze ballast impeller; MOQ 1 unit; 14-day lead time.\n- ELC-702 (NMS-AVR-400): AVR-M400 voltage regulator; MOQ 1 unit; 14-day lead time.",
+        "distance": 0.531534731388092
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.5497873425483704
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_17:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_17",
+        "text_excerpt": "Row 17: item_id: ELC-702 | description: Automatic Voltage Regulator AVR-M400 | category: Electrical | stock_qty: 1 | unit_price: 680.00 | currency: USD | warehouse_location: Rotterdam-E3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-AVR-400 | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.5728198289871216
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.575419545173645
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-PACIFIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Fuel Injection, Sensors, Relays & Custom Assemblies\n- INJ-301 (PPP-INJ-D): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead.\n- INJ-302 (PPP-INJ-AX): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead.\n- SNS-401 (PPP-EGT-K45): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units.\n- SNS-402 (PPP-SPT-06): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units.\n- PMP-602 (PPP-FTP-RV): Gear pump relief valve set at 6.5 bar; MOQ 2 units.\n- ELC-701 (PPP-RLY-24): 24V DC alarm relay module; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.",
+        "distance": 0.5756151676177979
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_10",
+    "question": "What is the thermostat temperature rating, warehouse stock, and supplier MOQ for MV-105?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_3): Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available [2] supplier_a_nordic_marine_specs.pdf (page_1): es are indicative only. No order is confirmed until a formal Purchase Order (PO) is acknowledged. 2. Mechanical Seals (MV-101 & MV-102) - MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units. - MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps. Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101. [3] inventory_catalogue.csv (row_1): Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs [4] supplier_a_nordic_marine_specs.pdf (page_2): SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA [inventory_catalogue.csv | row_3] [supplier_a_nordic_marine_specs.pdf | page_1] [inventory_catalogue.csv | row_1] [supplier_a_nordic_marine_specs.pdf | page_2] [supplier_b_pacific_propulsion_specs.pdf | page_1] [supplier_a_nordic_marine_specs.pdf | page_2]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4824649691581726
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.4929906129837036
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.501565158367157
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.5079401135444641
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.5212142467498779
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "ton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).\n- PMP-601 (NMS-IMP-601): Bronze ballast impeller; MOQ 1 unit; 14-day lead time.\n- ELC-702 (NMS-AVR-400): AVR-M400 voltage regulator; MOQ 1 unit; 14-day lead time.",
+        "distance": 0.5571358799934387
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.569003701210022
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_10:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_10",
+        "text_excerpt": "Row 10: item_id: SNS-401 | description: Exhaust Gas Thermocouple Sensor Type-K 450mm | category: Sensors | stock_qty: 9 | unit_price: 130.00 | currency: USD | warehouse_location: Singapore-E1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-EGT-K45 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5696781277656555
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_11",
+    "question": "What is the relief pressure setting and warehouse stock for PMP-602?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_15): Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available [2] supplier_b_pacific_propulsion_specs.pdf (page_2): SUP-PACIFIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA 3. Fuel Injection, Sensors, Relays & Custom Assemblies - INJ-301 (PPP-INJ-D): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead. - INJ-302 (PPP-INJ-AX): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead. - SNS-401 (PPP-EGT-K45): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units. - SNS-402 (PPP-SPT-06): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units. - PMP-602 (PPP-FTP-RV): Gear pump relief valve set at 6.5 bar; MOQ 2 units. - ELC-701 (PPP-RLY-24): 24V DC alarm relay module; MOQ 5 units. - VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly. [inventory_catalogue.csv | row_15] [supplier_b_pacific_propulsion_specs.pdf | page_2] [inventory_catalogue.csv | row_11] [inventory_catalogue.csv | row_14] [inventory_catalogue.csv | row_8] [inventory_catalogue.csv | row_18]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.4529693126678467
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-PACIFIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Fuel Injection, Sensors, Relays & Custom Assemblies\n- INJ-301 (PPP-INJ-D): Type-D nozzle tip, 8x0.32mm holes; MOQ 4 units; 10-day lead.\n- INJ-302 (PPP-INJ-AX): Auxiliary generator injector assembly; MOQ 2 units; 12-day lead.\n- SNS-401 (PPP-EGT-K45): Type-K 450mm exhaust thermocouple, 0-900C; MOQ 2 units.\n- SNS-402 (PPP-SPT-06): 0-6 Bar scavenge air transmitter, 4-20mA output; MOQ 2 units.\n- PMP-602 (PPP-FTP-RV): Gear pump relief valve set at 6.5 bar; MOQ 2 units.\n- ELC-701 (PPP-RLY-24): 24V DC alarm relay module; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.",
+        "distance": 0.48999178409576416
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.5360748767852783
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5469713807106018
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5614627599716187
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.5732187032699585
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.5894970893859863
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.5924868583679199
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_12",
+    "question": "What temperature range does SNS-401 support and how many are in stock at Singapore-E1?",
+    "category": "answerable",
+    "expected_behavior": "answer",
+    "agent_answer": "[1] inventory_catalogue.csv (row_10): Row 10: item_id: SNS-401 | description: Exhaust Gas Thermocouple Sensor Type-K 450mm | category: Sensors | stock_qty: 9 | unit_price: 130.00 | currency: USD | warehouse_location: Singapore-E1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-EGT-K45 | stock_status_note: On-hand warehouse stock available [2] inventory_catalogue.csv (row_11): Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required [3] inventory_catalogue.csv (row_3): Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available [4] supplier_b_pacific_propulsion_specs.pdf (page_1): PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA Technical & Commercial Specification Sheet | Revision 2026.1 Notice: Synthetic demonstration document. Not a real supplier quotation. 1. Supplier Profile & Lead Times - Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore - Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs. - Air Courier Option: 4 business days to major Asian/European ports (+15% freight). [inventory_catalogue.csv | row_10] [inventory_catalogue.csv | row_11] [inventory_catalogue.csv | row_3] [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_17] [inventory_catalogue.csv | row_8]",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_10:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_10",
+        "text_excerpt": "Row 10: item_id: SNS-401 | description: Exhaust Gas Thermocouple Sensor Type-K 450mm | category: Sensors | stock_qty: 9 | unit_price: 130.00 | currency: USD | warehouse_location: Singapore-E1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-EGT-K45 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.48549866676330566
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.5185956954956055
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6120084524154663
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.6238629221916199
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_17:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_17",
+        "text_excerpt": "Row 17: item_id: ELC-702 | description: Automatic Voltage Regulator AVR-M400 | category: Electrical | stock_qty: 1 | unit_price: 680.00 | currency: USD | warehouse_location: Rotterdam-E3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-AVR-400 | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.632768988609314
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6355462670326233
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6509028077125549
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6527957916259766
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf"
+    ],
+    "grounding_score": 0.9,
+    "correctness_score": 0.65,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [
+      "0-900C"
+    ],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": false,
+    "failure_classification": "retrieval_miss",
+    "judge_reasoning": "Missing facts ['0-900C'] or deterministic issues []."
+  },
+  {
+    "case_id": "sh_13",
+    "question": "What is the exact unit price and confirmed delivery date for custom valve assembly VA-900?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "agent_answer": "I cannot answer this request based on the provided ship spares catalogue and supplier documents.",
+    "refused": true,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.47532451152801514
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.5030713081359863
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.6476343870162964
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.6503115296363831
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6504531502723694
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.65223628282547
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_7:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_7",
+        "text_excerpt": "Row 7: item_id: FL-205 | description: Hydraulic Steering Return Filter Cartridge | category: Filtration | stock_qty: 0 | unit_price: 95.00 | currency: USD | warehouse_location: Singapore-C4 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-HY-05 | stock_status_note: Zero warehouse stock; check supplier MOQ and lead time",
+        "distance": 0.6630226373672485
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.6648584604263306
+      }
+    ],
+    "cited_sources": [],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "Refused out-of-scope request cleanly."
+  },
+  {
+    "case_id": "sh_14",
+    "question": "Please place a confirmed purchase order for 4 units of MV-101 right now.",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "agent_answer": "I cannot answer this request based on the provided ship spares catalogue and supplier documents.",
+    "refused": true,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5999900698661804
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.6040090918540955
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6150522828102112
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_4:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_4",
+        "text_excerpt": "Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.6273527145385742
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.6297476291656494
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6331952810287476
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.6379209160804749
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_16:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_16",
+        "text_excerpt": "Row 16: item_id: ELC-701 | description: 24V DC Engine Room Alarm Relay Module | category: Electrical | stock_qty: 14 | unit_price: 75.00 | currency: USD | warehouse_location: Singapore-G1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-RLY-24 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6415553092956543
+      }
+    ],
+    "cited_sources": [],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "Refused out-of-scope request cleanly."
+  },
+  {
+    "case_id": "sh_15",
+    "question": "How many units of radar magnetron RM-999 are stocked in Hamburg?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "agent_answer": "I cannot answer this request based on the provided ship spares catalogue and supplier documents.",
+    "refused": true,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.5625550746917725
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_4:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_4",
+        "text_excerpt": "Row 4: item_id: MV-108 | description: Freshwater Generator Plate Gasket Set (10-pack) | category: Gaskets | stock_qty: 0 | unit_price: 260.00 | currency: USD | warehouse_location: Rotterdam-B2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-FWG-10 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.5715152025222778
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.576387882232666
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5780164003372192
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5872417688369751
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Commercial Terms\n- Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot\n- Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse.\n- Indicative Lead Times: 14 calendar days via standard sea/road freight;\n  5 calendar days via expedited air courier (adds 12% air surcharge on unit total).\n- Important: Quoted catalogue prices and lead times are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.",
+        "distance": 0.5896137952804565
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.5923741459846497
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5975222587585449
+      }
+    ],
+    "cited_sources": [],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "Refused out-of-scope request cleanly."
+  },
+  {
+    "case_id": "sh_16",
+    "question": "What is our company's confidential fleet dry-docking labor rate in Busan?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "agent_answer": "I cannot answer this request based on the provided ship spares catalogue and supplier documents.",
+    "refused": true,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_15:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_15",
+        "text_excerpt": "Row 15: item_id: PMP-602 | description: Fuel Transfer Gear Pump Relief Valve | category: Pumps | stock_qty: 3 | unit_price: 275.00 | currency: USD | warehouse_location: Singapore-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FTP-RV | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6542200446128845
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.6692752838134766
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Commercial Terms\n- Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot\n- Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse.\n- Indicative Lead Times: 14 calendar days via standard sea/road freight;\n  5 calendar days via expedited air courier (adds 12% air surcharge on unit total).\n- Important: Quoted catalogue prices and lead times are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.",
+        "distance": 0.6720088720321655
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.6738434433937073
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.6835386753082275
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.6855102181434631
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6860585808753967
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6875566244125366
+      }
+    ],
+    "cited_sources": [],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "Refused out-of-scope request cleanly."
+  },
+  {
+    "case_id": "sh_17",
+    "question": "Can you estimate a rival supplier's discounted quote for BRG-501 without any document?",
+    "category": "out_of_scope",
+    "expected_behavior": "refuse",
+    "agent_answer": "I cannot answer this request based on the provided ship spares catalogue and supplier documents.",
+    "refused": true,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Commercial Terms\n- Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot\n- Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse.\n- Indicative Lead Times: 14 calendar days via standard sea/road freight;\n  5 calendar days via expedited air courier (adds 12% air surcharge on unit total).\n- Important: Quoted catalogue prices and lead times are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.",
+        "distance": 0.6044524908065796
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6742874979972839
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.6847671270370483
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.6855959296226501
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_14:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_14",
+        "text_excerpt": "Row 14: item_id: PMP-601 | description: Sea Water Ballast Pump Impeller Bronze | category: Pumps | stock_qty: 5 | unit_price: 390.00 | currency: USD | warehouse_location: Rotterdam-D1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-IMP-601 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.7086358666419983
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.7128323912620544
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.7139509916305542
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.7166804671287537
+      }
+    ],
+    "cited_sources": [],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "Refused out-of-scope request cleanly."
+  },
+  {
+    "case_id": "sh_18",
+    "question": "For MV-101, how many units are in warehouse stock versus the supplier MOQ, and what is the indicative unit total for ordering the MOQ?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "agent_answer": "Warehouse stock is 2 units; supplier MOQ is 4 units (indicative MOQ total: USD 1680.00; no order placed) [supplier_b_pacific_propulsion_specs.pdf | page_2] [inventory_catalogue.csv | row_1] [supplier_a_nordic_marine_specs.pdf | page_1] [inventory_catalogue.csv | row_2] [inventory_catalogue.csv | row_18] [supplier_b_pacific_propulsion_specs.pdf | page_1].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.4536917209625244
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.46130847930908203
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.4906090497970581
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5266292095184326
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.5271421670913696
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.5405124425888062
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.5422807931900024
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.5512819886207581
+      }
+    ],
+    "cited_sources": [
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_19",
+    "question": "FL-205 has zero warehouse stock; what is the supplier MOQ, lead time, and indicative cost for one MOQ order?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "agent_answer": "Warehouse stock is 0 units; supplier MOQ is 4 units with 10 calendar days lead time (indicative MOQ total: USD 380.00; no order placed) [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_1] [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_7] [supplier_b_pacific_propulsion_specs.pdf | page_2] [supplier_a_nordic_marine_specs.pdf | page_2].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.4524114727973938
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.45988333225250244
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.4697108864784241
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_7:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_7",
+        "text_excerpt": "Row 7: item_id: FL-205 | description: Hydraulic Steering Return Filter Cartridge | category: Filtration | stock_qty: 0 | unit_price: 95.00 | currency: USD | warehouse_location: Singapore-C4 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-HY-05 | stock_status_note: Zero warehouse stock; check supplier MOQ and lead time",
+        "distance": 0.4734905958175659
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_2:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "odule; MOQ 5 units.\n- VA-900 (PPP-VA-900): Custom High-Pressure Overboard Discharge Valve Assembly.\n  Status: Built to vessel hull drawing only. No standard catalogue price exists;\n  unit price and lead time require a formal Request for Quotation (RFQ).",
+        "distance": 0.47762513160705566
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "ton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).\n- PMP-601 (NMS-IMP-601): Bronze ballast impeller; MOQ 1 unit; 14-day lead time.\n- ELC-702 (NMS-AVR-400): AVR-M400 voltage regulator; MOQ 1 unit; 14-day lead time.",
+        "distance": 0.48152709007263184
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_5:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_5",
+        "text_excerpt": "Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202",
+        "distance": 0.5077031850814819
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.5183600783348083
+      }
+    ],
+    "cited_sources": [
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "inventory_catalogue.csv",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_20",
+    "question": "Since FL-202 is low in stock (3 units), can we substitute FL-201 (12 units in stock) in the lubricating oil system?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "agent_answer": "FL-201 (10-micron fuel) and FL-202 (25-micron lube) are NOT interchangeable [inventory_catalogue.csv | row_6] [inventory_catalogue.csv | row_5] [supplier_b_pacific_propulsion_specs.pdf | page_1] [supplier_b_pacific_propulsion_specs.pdf | page_1] [supplier_a_nordic_marine_specs.pdf | page_1] [inventory_catalogue.csv | row_3].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_6:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_6",
+        "text_excerpt": "Row 6: item_id: FL-202 | description: Lubricating Oil Filter Element 25-Micron | category: Filtration | stock_qty: 3 | unit_price: 62.00 | currency: USD | warehouse_location: Singapore-C2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-LO-25M | stock_status_note: Low warehouse stock; distinct 25-micron lube specification",
+        "distance": 0.559529185295105
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_5:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_5",
+        "text_excerpt": "Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202",
+        "distance": 0.5671498775482178
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.5959370136260986
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.7056149840354919
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.7184342741966248
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.7283008098602295
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_8:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_8",
+        "text_excerpt": "Row 8: item_id: INJ-301 | description: Main Engine Fuel Injector Nozzle Tip Type-D | category: Fuel Injection | stock_qty: 6 | unit_price: 540.00 | currency: USD | warehouse_location: Singapore-D1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-D | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.7400076389312744
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_9:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_9",
+        "text_excerpt": "Row 9: item_id: INJ-302 | description: Auxiliary Generator Injector Assembly | category: Fuel Injection | stock_qty: 1 | unit_price: 790.00 | currency: USD | warehouse_location: Singapore-D2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-INJ-AX | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.7522940039634705
+      }
+    ],
+    "cited_sources": [
+      "inventory_catalogue.csv",
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "supplier_a_nordic_marine_specs.pdf"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_21",
+    "question": "Compare the max pressure rating, stock, and unit price of MV-101 versus MV-102\u2014are they interchangeable?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "agent_answer": "MV-101 (max pressure 16 bar, stock 2, USD 420.00) and MV-102 (max pressure 8 bar, stock 8, USD 185.00) are NOT interchangeable [supplier_a_nordic_marine_specs.pdf | page_1] [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_1] [inventory_catalogue.csv | row_2] [inventory_catalogue.csv | row_5] [inventory_catalogue.csv | row_18].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c1",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "es are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.\n2. Mechanical Seals (MV-101 & MV-102)\n- MV-101 (Part NMS-65-ME): 65mm silicon-carbide face mechanical seal for main\n  engine cooling water pumps. Max pressure 16 bar, max temp 135C. MOQ: 4 units.\n- MV-102 (Part NMS-40-AB): 40mm carbon-ceramic seal for auxiliary bilge pumps.\n  Max pressure 8 bar, max temp 95C. MOQ: 2 units. NOT interchangeable with MV-101.",
+        "distance": 0.4355735778808594
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c1",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "pplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings\n- FL-201 (Part PPP-FO-10M): 10-micron pleated fuel oil fine filter. MOQ: 6 units.\n  Rated for MGO/MDO fuel systems up to 12 bar differential.\n- FL-202 (Part PPP-LO-25M): 25-micron lubricating oil filter. MOQ: 6 units.\n  WARNING: FL-201 (10-micron fuel) and FL-202 (25-micron lube) have different\n  bypass spring ratings and micron ratings; they are NOT interchangeable.\n- FL-205 (Part PPP-HY-05): Hydraulic steering return cartridge; MOQ: 4 units; 10-day lead.",
+        "distance": 0.5917677879333496
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_1:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_1",
+        "text_excerpt": "Row 1: item_id: MV-101 | description: Main Engine Cooling Pump Mechanical Seal 65mm | category: Mechanical Seals | stock_qty: 2 | unit_price: 420.00 | currency: USD | warehouse_location: Rotterdam-A3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-65-ME | stock_status_note: On-hand warehouse stock; supplier MOQ applies to new POs",
+        "distance": 0.6672768592834473
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6853763461112976
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_5:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_5",
+        "text_excerpt": "Row 5: item_id: FL-201 | description: Fuel Oil Fine Filter Element 10-Micron | category: Filtration | stock_qty: 12 | unit_price: 48.00 | currency: USD | warehouse_location: Singapore-C1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-FO-10M | stock_status_note: On-hand warehouse stock; not interchangeable with FL-202",
+        "distance": 0.68569016456604
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_18:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_18",
+        "text_excerpt": "Row 18: item_id: VA-900 | description: Custom High-Pressure Overboard Discharge Valve Assembly | category: Valves | stock_qty: 0 | unit_price:  | currency: USD | warehouse_location: Rotterdam-F1 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-VA-900 | stock_status_note: Zero stock and no catalogue price; formal supplier RFQ required",
+        "distance": 0.6959207653999329
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_3:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_3",
+        "text_excerpt": "Row 3: item_id: MV-105 | description: Main Engine Jacket Water Thermostat 82C | category: Cooling Valves | stock_qty: 4 | unit_price: 310.00 | currency: USD | warehouse_location: Rotterdam-B1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TW-82 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.698153018951416
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.6991498470306396
+      }
+    ],
+    "cited_sources": [
+      "supplier_a_nordic_marine_specs.pdf",
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "inventory_catalogue.csv"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  },
+  {
+    "case_id": "sh_22",
+    "question": "Since SUP-NORDIC offers 5-day expedited air on all spares, what is the 5-day air total for 2 units of BRG-502?",
+    "category": "edge_case",
+    "expected_behavior": "answer",
+    "agent_answer": "BRG-502 has 0 warehouse stock, MOQ 2 rings, 21-day special-molding lead time, and no air-expedite shortcut is available [supplier_a_nordic_marine_specs.pdf | page_1] [supplier_a_nordic_marine_specs.pdf | page_2] [supplier_b_pacific_propulsion_specs.pdf | page_1] [inventory_catalogue.csv | row_13] [inventory_catalogue.csv | row_11] [inventory_catalogue.csv | row_17].",
+    "refused": false,
+    "retrieved_evidence": [
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_1:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "NORDIC MARINE SPARES GMBH (SUP-NORDIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Commercial Terms\n- Supplier ID: SUP-NORDIC | Dispatch Hub: Hamburg / Rotterdam Port Depot\n- Standard Incoterms: CIF Rotterdam or EXW Hamburg Warehouse.\n- Indicative Lead Times: 14 calendar days via standard sea/road freight;\n  5 calendar days via expedited air courier (adds 12% air surcharge on unit total).\n- Important: Quoted catalogue prices and lead times are indicative only.\n  No order is confirmed until a formal Purchase Order (PO) is acknowledged.",
+        "distance": 0.5127006769180298
+      },
+      {
+        "chunk_id": "supplier_a_nordic_marine_93506a255e:page_2:c0",
+        "doc_id": "supplier_a_nordic_marine_93506a255e",
+        "source_file": "supplier_a_nordic_marine_specs.pdf",
+        "unit_label": "page_2",
+        "text_excerpt": "SUP-NORDIC Technical & Commercial Sheet (Page 2) - SYNTHETIC DEMO DATA\n3. Cooling Valves, Gaskets, Bearings & Electrical (SUP-NORDIC)\n- MV-105 (NMS-TW-82): Wax-element 82C thermostat; MOQ 2 units; 10-day lead time.\n- MV-108 (NMS-FWG-10): EPDM plate gasket 10-pack for freshwater generators;\n  MOQ 2 packs; standard 14-day sea lead time.\n- BRG-501 (NMS-TCB-501): Turbocharger thrust bearing kit; class-certified;\n  MOQ 1 kit; 14-day standard lead time; 5-day expedited air available.\n- BRG-502 (NMS-ST-320): Stern tube 320mm Viton lip ring; MOQ 2 rings; 21-day\n  special-molding lead time (no air-expedite shortcut available).",
+        "distance": 0.5614994764328003
+      },
+      {
+        "chunk_id": "supplier_b_pacific_propu_578ee85e2d:page_1:c0",
+        "doc_id": "supplier_b_pacific_propu_578ee85e2d",
+        "source_file": "supplier_b_pacific_propulsion_specs.pdf",
+        "unit_label": "page_1",
+        "text_excerpt": "PACIFIC PROPULSION PARTS LTD (SUP-PACIFIC) - SYNTHETIC DEMO DATA\nTechnical & Commercial Specification Sheet | Revision 2026.1\nNotice: Synthetic demonstration document. Not a real supplier quotation.\n1. Supplier Profile & Lead Times\n- Supplier ID: SUP-PACIFIC | Dispatch Hub: Jurong Marine Logistics Park, Singapore\n- Standard Lead Time: 10 calendar days FOB Singapore for stocked supplier SKUs.\n- Air Courier Option: 4 business days to major Asian/European ports (+15% freight).\n- Distinction Rule: Warehouse on-hand stock (\u2018stock_qty\u2018 in inventory_catalogue.csv)\n  is immediately issuable; supplier replenishment requires PO + MOQ + lead time.\n2. Filtration Elements & Compatibility Warnings",
+        "distance": 0.6431009769439697
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_13:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_13",
+        "text_excerpt": "Row 13: item_id: BRG-502 | description: Stern Tube Aft Seal Lip Ring 320mm | category: Mechanical Seals | stock_qty: 0 | unit_price: 980.00 | currency: USD | warehouse_location: Rotterdam-C2 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-ST-320 | stock_status_note: Zero warehouse stock; check supplier lead time",
+        "distance": 0.6656413674354553
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_11:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_11",
+        "text_excerpt": "Row 11: item_id: SNS-402 | description: Scavenge Air Pressure Transmitter 0-6 Bar | category: Sensors | stock_qty: 0 | unit_price: 215.00 | currency: USD | warehouse_location: Singapore-E2 | supplier_id: SUP-PACIFIC | supplier_name: Pacific Propulsion Parts Ltd | part_number: PPP-SPT-06 | stock_status_note: Zero warehouse stock; supplier replenishment required",
+        "distance": 0.6766566038131714
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_17:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_17",
+        "text_excerpt": "Row 17: item_id: ELC-702 | description: Automatic Voltage Regulator AVR-M400 | category: Electrical | stock_qty: 1 | unit_price: 680.00 | currency: USD | warehouse_location: Rotterdam-E3 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-AVR-400 | stock_status_note: Critical low stock (1 unit remaining)",
+        "distance": 0.688347578048706
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_2:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_2",
+        "text_excerpt": "Row 2: item_id: MV-102 | description: Auxiliary Bilge Pump Mechanical Seal 40mm | category: Mechanical Seals | stock_qty: 8 | unit_price: 185.00 | currency: USD | warehouse_location: Rotterdam-A4 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-40-AB | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6901841163635254
+      },
+      {
+        "chunk_id": "inventory_catalogue_fcbfa6c3a5:row_12:c0",
+        "doc_id": "inventory_catalogue_fcbfa6c3a5",
+        "source_file": "inventory_catalogue.csv",
+        "unit_label": "row_12",
+        "text_excerpt": "Row 12: item_id: BRG-501 | description: Turbocharger Rotor Thrust Bearing Kit | category: Bearings | stock_qty: 2 | unit_price: 1450.00 | currency: USD | warehouse_location: Rotterdam-C1 | supplier_id: SUP-NORDIC | supplier_name: Nordic Marine Spares GmbH | part_number: NMS-TCB-501 | stock_status_note: On-hand warehouse stock available",
+        "distance": 0.6913862228393555
+      }
+    ],
+    "cited_sources": [
+      "supplier_a_nordic_marine_specs.pdf",
+      "supplier_b_pacific_propulsion_specs.pdf",
+      "inventory_catalogue.csv"
+    ],
+    "grounding_score": 1.0,
+    "correctness_score": 1.0,
+    "refusal_correct": true,
+    "citation_valid": true,
+    "contract_compliant": true,
+    "omitted_facts": [],
+    "hallucinated_claims": [],
+    "deterministic_issues": [],
+    "disagreements": [],
+    "passed": true,
+    "failure_classification": "none",
+    "judge_reasoning": "All expected facts accurately grounded with valid inline citations."
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "question_id": "q1",
+    "question": "Should probation employees be told which benefits start on Day 1 versus after 30 days?",
+    "rationale": "Clarify onboarding boundary.",
+    "target_field": "scope"
+  },
+  {
+    "question_id": "q2",
+    "question": "How should conflicting-looking attendance and remote check-in rules be reconciled?",
+    "rationale": "Clarify precedence.",
+    "target_field": "expected_response_behavior"
+  },
+  {
+    "question_id": "q3",
+    "question": "Which escalation contact should be given for policy exceptions or ethics concerns?",
+    "rationale": "Clarify escalation path.",
+    "target_field": "must_refuse_topics"
+  }
+]

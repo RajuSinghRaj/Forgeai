@@ -1,0 +1,61 @@
+{
+  "eval_suite_sha256": "3e5e4fb3f76ecf083e1b1dc39bccdf3fbf4c8178476506eebab1c1b5a07df7b6",
+  "execution_mode": "deterministic_mocked_llm_due_to_live_503",
+  "before_scorecard": {
+    "iteration": 1,
+    "total_cases": 22,
+    "passed_cases": 20,
+    "failed_cases": 2,
+    "pass_rate": 0.9091,
+    "answerable_accuracy": 0.8333,
+    "out_of_scope_refusal_accuracy": 1.0,
+    "edge_case_accuracy": 1.0,
+    "grounding_rate": 1.0,
+    "citation_accuracy": 1.0,
+    "contract_compliance_rate": 1.0,
+    "avg_grounding_score": 0.9909,
+    "avg_correctness_score": 0.9523,
+    "refusal_accuracy": 1.0,
+    "failure_counts": {
+      "retrieval_miss": 2,
+      "prompt_defect": 0,
+      "hallucination": 0,
+      "wrong_refusal": 0
+    }
+  },
+  "after_scorecard": {
+    "iteration": 1,
+    "total_cases": 22,
+    "passed_cases": 22,
+    "failed_cases": 0,
+    "pass_rate": 1.0,
+    "answerable_accuracy": 1.0,
+    "out_of_scope_refusal_accuracy": 1.0,
+    "edge_case_accuracy": 1.0,
+    "grounding_rate": 1.0,
+    "citation_accuracy": 1.0,
+    "contract_compliance_rate": 1.0,
+    "avg_grounding_score": 1.0,
+    "avg_correctness_score": 1.0,
+    "refusal_accuracy": 1.0,
+    "failure_counts": {
+      "retrieval_miss": 0,
+      "prompt_defect": 0,
+      "hallucination": 0,
+      "wrong_refusal": 0
+    }
+  },
+  "before_failed_cases": [
+    "sh_01",
+    "sh_12"
+  ],
+  "after_failed_cases": [],
+  "sh_01_tools_used": [
+    "retrieve_documents",
+    "inspect_csv_records"
+  ],
+  "sh_12_tools_used": [
+    "retrieve_documents",
+    "inspect_csv_records"
+  ]
+}

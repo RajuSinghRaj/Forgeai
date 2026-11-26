@@ -1,0 +1,21 @@
+{
+  "chunking": {
+    "chunk_size": 700,
+    "chunk_overlap": 100,
+    "csv_rows_per_unit": 1,
+    "separators": [
+      "\n\n",
+      "\n",
+      ". ",
+      " "
+    ]
+  },
+  "retrieval": {
+    "collection_name": "col_maritime_ship_spares_assistant_29713599",
+    "embedding_model": "all-MiniLM-L6-v2",
+    "top_k": 2,
+    "score_threshold": null,
+    "metadata_filters": {},
+    "require_source_citations": true
+  }
+}

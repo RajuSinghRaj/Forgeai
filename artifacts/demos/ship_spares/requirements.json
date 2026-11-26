@@ -1,0 +1,29 @@
+{
+  "domain_name": "Ship Spares Procurement",
+  "purpose": "Assist operations and maintenance staff with spare part availability, specifications, supplier MOQs, lead times, and indicative totals.",
+  "scope": "Inventory CSV lookup, supplier PDF technical specifications, lead times, MOQs, compatibility warnings, and indicative cost calculations.",
+  "audience": "Operations and maintenance staff",
+  "tone": "Precise, operational, and cautious",
+  "must_answer_topics": [
+    "Warehouse stock and locations",
+    "Supplier specifications, MOQs, and lead times",
+    "Cross-document availability and indicative totals",
+    "Part compatibility distinctions"
+  ],
+  "must_refuse_topics": [
+    "Inventing missing prices or RFQ items",
+    "Claiming an order or PO has been placed",
+    "Unlisted SKUs or external supplier quotes"
+  ],
+  "expected_response_behavior": "Report warehouse stock separately from supplier MOQ/lead time, cite CSV rows and supplier PDF pages, and calculate indicative totals only when all figures exist.",
+  "constraints": [
+    "Never claim an order has been placed",
+    "Never invent missing unit prices"
+  ],
+  "assumptions": [
+    "Unattended intake assumption for q1 (expected_response_behavior): Should indicative totals clearly note they exclude unquoted freight unless specified?",
+    "Unattended intake assumption for q2 (must_refuse_topics): How should items with missing prices (RFQ required) be handled?",
+    "Unattended intake assumption for q3 (scope): Should warehouse stock always be reported separately from supplier MOQ availability?"
+  ],
+  "clarifying_qa": []
+}
