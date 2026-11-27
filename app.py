@@ -25,6 +25,134 @@ st.set_page_config(
 )
 
 
+def _render_glass_theme() -> None:
+    """Apply the ForgeAI glass visual system without changing workflow behavior."""
+    st.markdown(
+        """
+        <style>
+        :root { color-scheme: light; }
+        [data-testid="stAppViewContainer"] {
+            background:
+              radial-gradient(ellipse at 10% 3%, rgba(255,255,255,.92), transparent 34%),
+              radial-gradient(ellipse at 93% 28%, rgba(219,221,226,.58), transparent 32%),
+              linear-gradient(145deg, #ececef 0%, #f8f8f9 48%, #e9e9ec 100%);
+            color: #17181d;
+        }
+        [data-testid="stHeader"] { background: rgba(250,250,251,.76); backdrop-filter:blur(16px); }
+        [data-testid="stSidebar"] {
+            background: linear-gradient(165deg, rgba(255,255,255,.76), rgba(239,239,242,.68));
+            border-right: 1px solid rgba(35,35,39,.1); backdrop-filter:blur(24px) saturate(110%);
+        }
+        [data-testid="stMain"] > div { padding: 1.2rem clamp(1rem, 4vw, 4.5rem) 3rem; }
+        [data-testid="stMarkdownContainer"] p { color: #34363b; }
+        [data-testid="stCaptionContainer"] { color: #5e6066; }
+        [data-testid="stWidgetLabel"] p, label, legend { color:#202126 !important; }
+        [data-testid="stMarkdownContainer"] strong { color:#17181d; }
+        h1, h2, h3, h4 { color: #17181d !important; letter-spacing: -.035em; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4.4rem) !important; font-weight: 720 !important; }
+        h2, h3, h4 { font-weight: 620 !important; }
+        [data-testid="stVerticalBlockBorderWrapper"],
+        [data-testid="stExpander"], [data-testid="stForm"],
+        [data-testid="stFileUploader"] section,
+        [data-testid="stDataFrame"], [data-testid="stAlert"] {
+            background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(255,255,255,.4)) !important;
+            border: 1px solid rgba(255,255,255,.86) !important;
+            border-top-color: rgba(255,255,255,.98) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 16px 42px rgba(35,35,40,.08), inset 0 1px rgba(255,255,255,.98), inset 0 -1px rgba(185,187,192,.12);
+            backdrop-filter: blur(24px) saturate(108%);
+        }
+        [data-testid="stMetric"] {
+            background: linear-gradient(145deg, rgba(255,255,255,.78), rgba(255,255,255,.43));
+            border: 1px solid rgba(255,255,255,.95); border-radius: 16px;
+            padding: 16px 18px; box-shadow: inset 0 1px #fff, 0 12px 30px #20212712;
+            backdrop-filter:blur(20px) saturate(110%);
+        }
+        [data-testid="stMetricLabel"] { color: #55575d !important; }
+        [data-testid="stMetricValue"] { color: #17181d !important; }
+        [data-testid="stTextInput"] input, [data-testid="stTextArea"] textarea,
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div,
+        [data-testid="stNumberInput"] input {
+            background: rgba(255,255,255,.66) !important; color: #17181d !important;
+            border: 1px solid rgba(35,35,39,.17) !important; border-radius: 12px !important;
+            box-shadow:inset 0 1px 3px rgba(30,30,34,.035),0 1px rgba(255,255,255,.85);
+        }
+        input::placeholder, textarea::placeholder { color:#777980 !important; opacity:1 !important; }
+        [data-testid="stTextInput"] input:focus, [data-testid="stTextArea"] textarea:focus {
+            border-color: rgba(40,41,45,.62) !important; box-shadow: 0 0 0 3px rgba(40,41,45,.1) !important;
+        }
+        .stButton > button, [data-testid="stDownloadButton"] button,
+        [data-testid="stFormSubmitButton"] button {
+            border-radius: 999px; border: 1px solid rgba(35,35,39,.2);
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+            min-height: 2.65rem; background:rgba(255,255,255,.57); color:#191a1f;
+            box-shadow:inset 0 1px rgba(255,255,255,.95);
+        }
+        .stButton > button:hover, [data-testid="stDownloadButton"] button:hover,
+        [data-testid="stFormSubmitButton"] button:hover {
+            transform: translateY(-1px); box-shadow: 0 8px 24px rgba(35,35,40,.14);
+            border-color: rgba(35,35,39,.42); background:rgba(255,255,255,.9);
+        }
+        .stButton > button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] {
+            background: linear-gradient(135deg, #25262c, #08090c); color: #fff; border: 0;
+        }
+        [data-testid="stExpander"] summary { color: #202126; }
+        [data-testid="stFileUploader"] section { border-style: dashed !important; }
+        [data-testid="stDataFrame"] { overflow: hidden; }
+        [data-testid="stAlert"] { color:#202126 !important; }
+        [data-testid="stAlert"] p, [data-testid="stAlert"] [data-testid="stMarkdownContainer"] { color:#292a2f !important; }
+        [data-testid="stCode"] { background:rgba(255,255,255,.7) !important; color:#222329 !important; }
+        hr { border-color: rgba(35,35,39,.14); }
+        .forge-hero { position:relative; overflow:hidden; text-align:center; padding:1.4rem 1rem 1.8rem;
+          min-height:470px; border:1px solid rgba(255,255,255,.95); border-radius:8px;
+          background:radial-gradient(ellipse at 50% 28%,rgba(255,255,255,.99) 0%,rgba(255,255,255,.86) 43%,rgba(255,255,255,.56) 100%);
+          box-shadow:0 24px 80px rgba(35,35,40,.1), inset 0 1px #fff; }
+        .forge-hero::before { content:""; position:absolute; pointer-events:none; inset:0;
+          background:linear-gradient(115deg,transparent 17%,rgba(255,255,255,.68) 43%,transparent 68%);
+          opacity:.48; }
+        .forge-nav { display:flex; justify-content:space-between; align-items:center; max-width:1120px;
+          margin:0 auto; color:#282a30; font-size:.9rem; }
+        .forge-brand { font-size:1.25rem; letter-spacing:-.04em; font-weight:750; }
+        .forge-mark { display:inline-grid; place-items:center; width:29px;height:29px; margin-right:9px;
+          border-radius:10px 10px 10px 3px; background:#272a31; color:#fff;font-size:.78rem; }
+        .forge-nav-note { color:#686d76; }
+        .forge-title { margin:2.5rem auto 0; max-width:1040px; font-size:clamp(3.2rem,8.6vw,7.4rem);
+          line-height:.86; letter-spacing:-.075em; font-weight:760; color:#18191e; }
+        .forge-title span { color:#73757b; }
+        .forge-art { position:relative; display:flex; align-items:center; justify-content:center;
+          height:90px; width:min(520px,90%); margin:1.6rem auto .5rem; }
+        .forge-glass { display:flex; align-items:center; justify-content:space-between; width:100%; height:66px;
+          padding:0 18px; border-radius:50px; border:1px solid rgba(255,255,255,.98);
+          background:linear-gradient(110deg,rgba(255,255,255,.64),rgba(229,229,232,.75),rgba(255,255,255,.56));
+          box-shadow:0 20px 36px rgba(35,35,40,.13), inset 0 2px 4px #fff, inset 0 -2px 8px #b7b8bc66;
+          backdrop-filter:blur(24px) saturate(105%); }
+        .forge-orb { position:absolute; left:50%; transform:translateX(-50%); width:83px;height:83px;
+          border-radius:50%; background:radial-gradient(circle at 32% 26%,#fff 0 12%,#f4f4f5 42%,#c7c8cc 100%);
+          box-shadow:0 12px 26px #44444a2b,inset 0 2px 5px #fff; border:1px solid #fff; }
+        .forge-node { width:14px;height:14px;border-radius:50%;background:#383b43;box-shadow:0 0 0 6px #fff9; }
+        .forge-dash { width:31%;height:2px;background:linear-gradient(90deg,transparent,#aeb4be,transparent); }
+        .forge-copy { max-width:650px; margin:.7rem auto 0; color:#4a4b50; font-size:1.05rem; line-height:1.7; }
+        .forge-steps { display:flex; justify-content:center; gap:.55rem; flex-wrap:wrap; margin:1.4rem auto 0; }
+        .forge-steps span { padding:.45rem .75rem; border:1px solid rgba(35,35,39,.13); border-radius:999px;
+          color:#44464c; background:rgba(255,255,255,.56); box-shadow:inset 0 1px #fff; font-size:.76rem; }
+        @media (max-width: 720px) {
+            [data-testid="stMain"] > div { padding: 1rem .85rem 2rem; }
+            h1 { font-size: 2.35rem !important; }
+            [data-testid="stMetric"] { padding: 12px; }
+            .forge-hero { min-height:410px; padding:.9rem .65rem 1.3rem; }
+            .forge-title { margin-top:3rem; font-size:clamp(2.5rem,13vw,4.5rem); }
+            .forge-art { margin-top:1.1rem; }
+            .forge-nav-note { font-size:.75rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: .01ms !important; scroll-behavior: auto !important; }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def _init_session_state() -> None:
     defaults = {
         "factory_state": None,
@@ -37,13 +165,28 @@ def _init_session_state() -> None:
 
 def main() -> None:
     _init_session_state()
+    _render_glass_theme()
     settings = load_settings()
     status = settings.status_summary()
     ready, issues = settings.gemini_readiness()
 
-    st.title("ForgeAI — The Agent That Builds Agents")
-    st.caption(
-        "Phase 5: Intake, Groundability, Agent Generator, Eval & Judge, Critic–Optimizer & Final Report"
+    st.markdown(
+        """
+        <section class="forge-hero">
+          <div class="forge-nav">
+            <div class="forge-brand"><span class="forge-mark">F</span>ForgeAI</div>
+            <div class="forge-nav-note">Agent workspace &nbsp; / &nbsp; From brief to reliable agent</div>
+          </div>
+          <div class="forge-title">Bring knowledge<br><span>to life, together.</span></div>
+          <div class="forge-art" aria-hidden="true">
+            <div class="forge-glass"><span class="forge-node"></span><span class="forge-dash"></span>
+              <span class="forge-orb"></span><span class="forge-dash"></span><span class="forge-node"></span></div>
+          </div>
+          <p class="forge-copy">Shape your source material into an AI agent with clear boundaries, measurable quality, and answers grounded in your documents.</p>
+          <div class="forge-steps"><span>Intake</span><span>Ground</span><span>Generate</span><span>Evaluate</span><span>Optimize</span></div>
+        </section>
+        """,
+        unsafe_allow_html=True,
     )
 
     with st.sidebar:
