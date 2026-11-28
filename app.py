@@ -187,6 +187,7 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
         [data-testid="stExpander"],
         [data-testid="stForm"],
         [data-testid="stFileUploader"] section,
+        [data-testid="stFileUploaderDropzone"],
         [data-testid="stDataFrame"],
         [data-testid="stAlert"] {{
             background: var(--glass-bg) !important;
@@ -197,12 +198,32 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
             backdrop-filter: blur(26px) saturate(155%) !important;
             -webkit-backdrop-filter: blur(26px) saturate(155%) !important;
         }}
-        [data-testid="stFileUploader"] section {{ border-style: dashed !important; }}
+        [data-testid="stFileUploader"] section,
+        [data-testid="stFileUploaderDropzone"] {{
+            border-style: dashed !important;
+        }}
+        [data-testid="stFileUploaderDropzoneInstructions"] span,
+        [data-testid="stFileUploaderDropzoneInstructions"] small,
+        [data-testid="stFileUploader"] small {{
+            color: var(--fg-muted) !important;
+            opacity: 1 !important;
+        }}
+        [data-testid="stExpander"] details,
         [data-testid="stExpander"] summary {{
+            background: transparent !important;
             color: var(--fg) !important;
             font-weight: 600 !important;
         }}
+        [data-testid="stAlert"] > div,
+        [data-testid="stAlertContainer"],
+        [data-testid="stAlert"] [role="alert"],
+        [data-testid="stAlert"] [data-baseweb="notification"] {{
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--fg) !important;
+        }}
         [data-testid="stAlert"] p,
+        [data-testid="stAlert"] span,
         [data-testid="stAlert"] [data-testid="stMarkdownContainer"] {{
             color: var(--fg) !important;
         }}
@@ -229,23 +250,41 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
             font-weight: 800 !important;
         }}
 
-        /* ── Inputs ── */
-        [data-testid="stTextInput"] input,
-        [data-testid="stTextArea"] textarea,
-        [data-testid="stSelectbox"] [data-baseweb="select"] > div,
-        [data-testid="stNumberInput"] input {{
+        /* ── Inputs (override Baseweb dark wrappers so typed text is always crisp) ── */
+        [data-testid="stTextInput"] [data-baseweb="input"],
+        [data-testid="stTextInput"] [data-baseweb="base-input"],
+        [data-testid="stTextArea"] [data-baseweb="textarea"],
+        [data-testid="stTextArea"] [data-baseweb="base-input"],
+        [data-testid="stNumberInput"] [data-baseweb="input"],
+        [data-testid="stNumberInput"] [data-baseweb="base-input"],
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div {{
             background: var(--input-bg) !important;
+            background-color: var(--input-bg) !important;
             color: var(--fg) !important;
             border: 1px solid var(--input-border) !important;
             border-radius: 14px !important;
             backdrop-filter: blur(14px) !important;
         }}
+        [data-testid="stTextInput"] input,
+        [data-testid="stTextArea"] textarea,
+        [data-testid="stNumberInput"] input {{
+            background: transparent !important;
+            background-color: transparent !important;
+            color: var(--fg) !important;
+            -webkit-text-fill-color: var(--fg) !important;
+            caret-color: var(--fg) !important;
+        }}
+        [data-testid="stSelectbox"] [data-baseweb="select"] span {{
+            color: var(--fg) !important;
+        }}
         input::placeholder, textarea::placeholder {{
             color: var(--placeholder) !important;
+            -webkit-text-fill-color: var(--placeholder) !important;
             opacity: 1 !important;
         }}
-        [data-testid="stTextInput"] input:focus,
-        [data-testid="stTextArea"] textarea:focus {{
+        [data-testid="stTextInput"] [data-baseweb="input"]:focus-within,
+        [data-testid="stTextArea"] [data-baseweb="textarea"]:focus-within,
+        [data-testid="stNumberInput"] [data-baseweb="input"]:focus-within {{
             border-color: var(--accent) !important;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22) !important;
         }}
@@ -253,7 +292,10 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
         /* ── Buttons (Vibrant Glassmorphic Gradient — No Black Button!) ── */
         .stButton > button,
         [data-testid="stDownloadButton"] button,
-        [data-testid="stFormSubmitButton"] button {{
+        [data-testid="stFormSubmitButton"] button,
+        [data-testid="stFileUploader"] button,
+        [data-testid="stFileUploaderDropzone"] button,
+        [data-testid="stBaseButton-secondary"] {{
             border-radius: 999px !important;
             border: 1px solid var(--sec-btn-bdr) !important;
             background: var(--sec-btn-bg) !important;
@@ -268,7 +310,9 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
         }}
         .stButton > button:hover:not(:disabled),
         [data-testid="stDownloadButton"] button:hover:not(:disabled),
-        [data-testid="stFormSubmitButton"] button:hover:not(:disabled) {{
+        [data-testid="stFormSubmitButton"] button:hover:not(:disabled),
+        [data-testid="stFileUploader"] button:hover:not(:disabled),
+        [data-testid="stBaseButton-secondary"]:hover:not(:disabled) {{
             transform: translateY(-2px) !important;
             background: var(--sec-btn-hover) !important;
             box-shadow: 0 10px 28px rgba(79, 70, 229, 0.20) !important;
