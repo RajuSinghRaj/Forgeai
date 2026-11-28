@@ -250,20 +250,39 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
             font-weight: 800 !important;
         }}
 
-        /* ── Inputs (override Baseweb dark wrappers so typed text is always crisp) ── */
+        /* ── Inputs (override all Baseweb layers so typed text is always crisp) ── */
         [data-testid="stTextInput"] [data-baseweb="input"],
+        [data-testid="stTextInput"] [data-baseweb="input"] > div,
         [data-testid="stTextInput"] [data-baseweb="base-input"],
+        [data-testid="stTextInput"] [data-baseweb="base-input"] > div,
         [data-testid="stTextArea"] [data-baseweb="textarea"],
+        [data-testid="stTextArea"] [data-baseweb="textarea"] > div,
         [data-testid="stTextArea"] [data-baseweb="base-input"],
+        [data-testid="stTextArea"] [data-baseweb="base-input"] > div,
         [data-testid="stNumberInput"] [data-baseweb="input"],
+        [data-testid="stNumberInput"] [data-baseweb="input"] > div,
         [data-testid="stNumberInput"] [data-baseweb="base-input"],
+        [data-testid="stNumberInput"] [data-baseweb="base-input"] > div,
         [data-testid="stSelectbox"] [data-baseweb="select"] > div {{
             background: var(--input-bg) !important;
             background-color: var(--input-bg) !important;
             color: var(--fg) !important;
-            border: 1px solid var(--input-border) !important;
+            border-color: var(--input-border) !important;
             border-radius: 14px !important;
+        }}
+        [data-testid="stTextInput"] [data-baseweb="input"],
+        [data-testid="stTextArea"] [data-baseweb="textarea"],
+        [data-testid="stNumberInput"] [data-baseweb="input"],
+        [data-testid="stSelectbox"] [data-baseweb="select"] > div {{
+            border: 1px solid var(--input-border) !important;
             backdrop-filter: blur(14px) !important;
+        }}
+        [data-testid="stTextArea"] [data-baseweb="textarea"] > div,
+        [data-testid="stTextInput"] [data-baseweb="input"] > div,
+        [data-testid="stNumberInput"] [data-baseweb="input"] > div {{
+            border: none !important;
+            background: transparent !important;
+            background-color: transparent !important;
         }}
         [data-testid="stTextInput"] input,
         [data-testid="stTextArea"] textarea,
@@ -319,10 +338,10 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
         }}
         .stButton > button[kind="primary"],
         [data-testid="stFormSubmitButton"] button[kind="primary"] {{
-            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
+            background: linear-gradient(135deg, #2563eb 0%, #3b5bdb 100%) !important;
             color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.35) !important;
-            box-shadow: 0 8px 26px rgba(79, 70, 229, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.32) !important;
+            border: 1px solid rgba(255, 255, 255, 0.28) !important;
+            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
         }}
         .stButton > button[kind="primary"] p,
         [data-testid="stFormSubmitButton"] button[kind="primary"] p {{
@@ -330,8 +349,8 @@ def _render_glass_theme(dark_mode: bool = False) -> None:
         }}
         .stButton > button[kind="primary"]:hover:not(:disabled),
         [data-testid="stFormSubmitButton"] button[kind="primary"]:hover:not(:disabled) {{
-            background: linear-gradient(135deg, #4338ca 0%, #0891b2 100%) !important;
-            box-shadow: 0 12px 34px rgba(6, 182, 212, 0.36) !important;
+            background: linear-gradient(135deg, #1d4ed8 0%, #364fc7 100%) !important;
+            box-shadow: 0 10px 28px rgba(37, 99, 235, 0.32) !important;
         }}
         .stButton > button:disabled,
         [data-testid="stFormSubmitButton"] button:disabled {{
@@ -625,7 +644,22 @@ def main() -> None:
     _init_session_state()
 
     with st.sidebar:
-        st.markdown("<span class='forge-section-label'>Appearance</span>", unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="display:flex;align-items:center;gap:10px;padding:0.15rem 0 0.75rem;
+                        border-bottom:1px solid rgba(148,163,184,0.22);margin-bottom:0.4rem;">
+              <span style="display:inline-grid;place-items:center;width:30px;height:30px;
+                           border-radius:9px;background:linear-gradient(135deg,#1e293b,#3b5bdb);
+                           color:#ffffff;font-size:0.84rem;font-weight:800;letter-spacing:-0.03em;">F</span>
+              <div>
+                <div style="font-size:1.02rem;font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:var(--fg);">ForgeAI</div>
+                <div style="font-size:0.68rem;font-weight:600;color:var(--fg-subtle);letter-spacing:0.02em;">Agent Factory</div>
+              </div>
+            </div>
+            <span class='forge-section-label'>Appearance</span>
+            """,
+            unsafe_allow_html=True,
+        )
         theme_choice = st.radio(
             "Theme",
             options=["Light Glass", "Dark Glass"],
@@ -646,24 +680,21 @@ def main() -> None:
           <div class="forge-orb-bg-1" aria-hidden="true"></div>
           <div class="forge-orb-bg-2" aria-hidden="true"></div>
           <svg class="forge-geo-tl" width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
-            <polygon points="8,44 26,10 46,38" stroke="var(--geo-stroke)" stroke-width="1.4"/>
-            <line x1="26" y1="10" x2="22" y2="46" stroke="var(--geo-stroke)" stroke-width="1.2"/>
-            <circle cx="8" cy="44" r="2.2" fill="var(--geo-stroke)"/>
-            <circle cx="26" cy="10" r="2.2" fill="var(--geo-stroke)"/>
-            <circle cx="46" cy="38" r="2.2" fill="var(--geo-stroke)"/>
+            <polygon points="8,44 26,10 46,38" stroke="var(--geo-stroke)" stroke-width="1.3"/>
+            <line x1="26" y1="10" x2="22" y2="46" stroke="var(--geo-stroke)" stroke-width="1.1"/>
+            <circle cx="8" cy="44" r="2" fill="var(--geo-stroke)"/>
+            <circle cx="26" cy="10" r="2" fill="var(--geo-stroke)"/>
+            <circle cx="46" cy="38" r="2" fill="var(--geo-stroke)"/>
           </svg>
           <svg class="forge-geo-br" width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
-            <polygon points="10,14 44,18 28,46" stroke="var(--geo-stroke)" stroke-width="1.4"/>
-            <line x1="10" y1="14" x2="36" y2="32" stroke="var(--geo-stroke)" stroke-width="1.2"/>
-            <circle cx="10" cy="14" r="2.2" fill="var(--geo-stroke)"/>
-            <circle cx="44" cy="18" r="2.2" fill="var(--geo-stroke)"/>
-            <circle cx="28" cy="46" r="2.2" fill="var(--geo-stroke)"/>
+            <polygon points="10,14 44,18 28,46" stroke="var(--geo-stroke)" stroke-width="1.3"/>
+            <line x1="10" y1="14" x2="36" y2="32" stroke="var(--geo-stroke)" stroke-width="1.1"/>
+            <circle cx="10" cy="14" r="2" fill="var(--geo-stroke)"/>
+            <circle cx="44" cy="18" r="2" fill="var(--geo-stroke)"/>
+            <circle cx="28" cy="46" r="2" fill="var(--geo-stroke)"/>
           </svg>
 
-          <div class="forge-nav">
-            <div class="forge-brand">
-              <span class="forge-mark">F</span>ForgeAI
-            </div>
+          <div class="forge-nav" style="justify-content:center;">
             <div class="forge-nav-pills">
               <span class="forge-nav-pill">Declarative Agents</span>
               <span class="forge-nav-pill">Grounded RAG</span>
@@ -674,16 +705,11 @@ def main() -> None:
 
           <div class="forge-hero-center">
             <h1 class="forge-headline">
-              Forge <span class="forge-headline-grad">agents</span>
-              <span class="forge-arrow-badge" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span><br>
-              that reason &amp; verify.
+              Build grounded agents<br>
+              <span style="color:var(--fg-subtle);font-weight:700;">that reason &amp; verify.</span>
             </h1>
             <p class="forge-subcopy">
-              Turn raw business briefs and multi-format documents into isolated, evaluated, self-optimizing AI agents with transparent citations.
+              Turn business briefs and multi-format documents into isolated, evaluated, self-optimizing agents with transparent citations.
             </p>
           </div>
 
