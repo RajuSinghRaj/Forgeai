@@ -33,8 +33,10 @@ class FailureClassification(str, Enum):
     NONE = "none"
     RETRIEVAL_MISS = "retrieval_miss"
     PROMPT_DEFECT = "prompt_defect"
+    CONTRACT_VIOLATION = "contract_violation"
     HALLUCINATION = "hallucination"
     WRONG_REFUSAL = "wrong_refusal"
+    EVAL_CASE_DEFECT = "eval_case_defect"
 
 
 class EvalCase(BaseModel):
@@ -55,6 +57,8 @@ class EvalCase(BaseModel):
 
     @model_validator(mode="after")
     def _validate_expectations(self) -> "EvalCase":
+        self.expected_facts = [fact.strip() for fact in self.expected_facts if fact and fact.strip()]
+        self.source_documents = [src.strip() for src in self.source_documents if src and src.strip()]
         if self.expected_behavior == ExpectedBehavior.ANSWER:
             if not self.expected_facts:
                 raise ValueError("Answerable EvalCase must include at least one expected_fact.")
@@ -107,8 +111,48 @@ class JudgeLLMVerdict(BaseModel):
     omitted_facts: list[str] = Field(default_factory=list)
     hallucinated_claims: list[str] = Field(default_factory=list)
     unsupported_verbosity: bool = False
+    eval_case_defect: bool = False
     suggested_failure_classification: FailureClassification = FailureClassification.NONE
     reasoning: str = Field(..., min_length=5)
+
+
+class JudgeBatchItemVerdict(BaseModel):
+    """Single-case semantic evaluation entry inside a batched Gemini Judge response."""
+
+    case_id: str = Field(..., min_length=1)
+    grounded: bool
+    grounding_score: float = Field(..., ge=0.0, le=1.0)
+    correctness_score: float = Field(..., ge=0.0, le=1.0)
+    addresses_question: bool
+    refusal_appropriate: bool
+    omitted_facts: list[str] = Field(default_factory=list)
+    hallucinated_claims: list[str] = Field(default_factory=list)
+    unsupported_verbosity: bool = False
+    eval_case_defect: bool = False
+    suggested_failure_classification: FailureClassification = FailureClassification.NONE
+    reasoning: str = Field(..., min_length=5)
+
+    def to_llm_verdict(self) -> JudgeLLMVerdict:
+        """Convert this keyed batch item into a standard `JudgeLLMVerdict`."""
+        return JudgeLLMVerdict(
+            grounded=self.grounded,
+            grounding_score=self.grounding_score,
+            correctness_score=self.correctness_score,
+            addresses_question=self.addresses_question,
+            refusal_appropriate=self.refusal_appropriate,
+            omitted_facts=list(self.omitted_facts),
+            hallucinated_claims=list(self.hallucinated_claims),
+            unsupported_verbosity=self.unsupported_verbosity,
+            eval_case_defect=self.eval_case_defect,
+            suggested_failure_classification=self.suggested_failure_classification,
+            reasoning=self.reasoning,
+        )
+
+
+class JudgeLLMBatchVerdict(BaseModel):
+    """Structured batched Gemini Judge response containing one independent verdict per case."""
+
+    verdicts: list[JudgeBatchItemVerdict] = Field(default_factory=list)
 
 
 class EvalCaseResult(BaseModel):
@@ -133,6 +177,7 @@ class EvalCaseResult(BaseModel):
     disagreements: list[str] = Field(default_factory=list)
     passed: bool
     failure_classification: FailureClassification = FailureClassification.NONE
+    eval_case_defect: bool = False
     judge_reasoning: str = Field(..., min_length=1)
 
     @model_validator(mode="after")
@@ -162,6 +207,8 @@ class IterationScorecard(BaseModel):
     avg_correctness_score: float = Field(..., ge=0.0, le=1.0)
     refusal_accuracy: float = Field(..., ge=0.0, le=1.0)
     failure_counts: dict[FailureClassification, int] = Field(default_factory=dict)
+    is_partial: bool = False
+    expected_total_cases: int | None = None
 
 
 class OptimizationChange(BaseModel):
@@ -250,6 +297,11 @@ class OptimizationIterationLog(BaseModel):
     remaining_failed_case_ids: list[str] = Field(default_factory=list)
     agent_version_before: int = Field(..., ge=1)
     agent_version_after: int = Field(..., ge=1)
+    early_stopped: bool = False
+    early_stop_reason: str = ""
+    evaluated_cases_count: int | None = None
+    early_stopped_cases: int = 0
+    requests_saved: int = 0
     stop_reason: str | None = None
 
 
@@ -279,4 +331,8 @@ class FactoryRunReport(BaseModel):
     eval_suite_sha256: str = ""
     artifact_paths: dict[str, str] = Field(default_factory=dict)
     honest_limitations: list[str] = Field(default_factory=list)
+    optimization_early_stops: int = 0
+    early_stopped_cases_total: int = 0
+    requests_saved_early_stopping: int = 0
+    agent_generation_requests_saved: int = 0
     stop_reason: str = Field(..., min_length=1)

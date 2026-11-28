@@ -9,7 +9,9 @@ from uuid import uuid4
 
 from forgeai.intake.interviewer import summarize_documents
 from forgeai.llm.gemini_client import GeminiClient
+from forgeai.llm.telemetry import telemetry_stage
 from forgeai.prompts.templates import (
+    CONSOLIDATED_AGENT_GENERATOR_PROMPT,
     OUTPUT_CONTRACT_GENERATOR_PROMPT,
     RETRIEVAL_CONFIG_GENERATOR_PROMPT,
     SYSTEM_PROMPT_GENERATOR_PROMPT,
@@ -17,6 +19,7 @@ from forgeai.prompts.templates import (
 )
 from forgeai.retrieval.loaders import DocumentUnit
 from forgeai.schemas.agent import (
+    AgentGenerationDraft,
     ChunkingConfig,
     DeclarativeAgentDefinition,
     OutputContract,
@@ -66,6 +69,12 @@ def _ensure_prompt_guardrails(
         additions.append(
             "- Never invent facts, fabricate citations, or claim to have performed actions "
             "you did not execute."
+        )
+    if "extrapolat" not in lowered and "separate documents" not in lowered:
+        additions.append(
+            "- Do not combine separate documents to infer or invent unstated exceptions, rules, "
+            "or interactions; cite directly supported facts for partial answers and clearly refuse "
+            "or state the gap when required operational rules are undocumented."
         )
     if requirements.must_refuse_topics:
         refuse_line = ", ".join(requirements.must_refuse_topics)
@@ -140,26 +149,29 @@ class DeclarativeAgentGenerator:
             groundability_json=groundability.model_dump_json(indent=2),
             document_summary=doc_summary,
         )
-        draft = self._gemini.generate_structured(prompt, SystemPromptDraft, temperature=0.2)
+        with telemetry_stage("agent_prompt"):
+            draft = self._gemini.generate_structured(prompt, SystemPromptDraft, temperature=0.2)
+        return self._finalize_prompt_draft(draft, requirements, groundability)
+
+    def _finalize_prompt_draft(
+        self,
+        draft: SystemPromptDraft,
+        requirements: StructuredRequirements,
+        groundability: GroundabilityReport,
+    ) -> SystemPromptDraft:
+        """Apply prompt guardrails cleanly to any SystemPromptDraft."""
         hardened = _ensure_prompt_guardrails(draft.system_prompt, requirements, groundability)
         return draft.model_copy(update={"system_prompt": hardened})
 
-    def generate_retrieval_strategy(
+    def _validate_retrieval_draft(
         self,
-        requirements: StructuredRequirements,
+        draft: RetrievalStrategyDraft,
         documents: list[DocumentInput],
         units: list[DocumentUnit],
         *,
         collection_name: str,
     ) -> tuple[ChunkingConfig, RetrievalConfig, str]:
-        """Generate validated chunking and retrieval configuration without invented metadata."""
-        doc_summary = summarize_documents(documents, units)
-        prompt = RETRIEVAL_CONFIG_GENERATOR_PROMPT.format(
-            requirements_json=requirements.model_dump_json(indent=2),
-            document_summary=doc_summary,
-        )
-        draft = self._gemini.generate_structured(prompt, RetrievalStrategyDraft, temperature=0.1)
-
+        """Validate chunking bounds and whitelist metadata filters against observed corpus files."""
         csv_rows = draft.csv_rows_per_unit or self._default_csv_rows_per_unit
         chunking = ChunkingConfig(
             chunk_size=draft.chunk_size,
@@ -187,25 +199,14 @@ class DeclarativeAgentGenerator:
         )
         return chunking, retrieval, draft.rationale
 
-    def select_tools(
+    def _validate_tool_selection_draft(
         self,
-        requirements: StructuredRequirements,
+        draft: ToolSelectionDraft,
         documents: list[DocumentInput],
-        units: list[DocumentUnit],
         *,
-        tool_registry: ToolRegistry | None = None,
+        registry: ToolRegistry,
     ) -> tuple[list[ToolSelection], dict[str, str]]:
-        """Select least-privilege tools validated strictly against the real ToolRegistry."""
-        registry = tool_registry or self._tool_registry
-        specs = registry.list_specs()
-        doc_summary = summarize_documents(documents, units)
-        prompt = TOOL_SELECTION_PROMPT.format(
-            tools_json=json.dumps(specs, indent=2),
-            requirements_json=requirements.model_dump_json(indent=2),
-            document_summary=doc_summary,
-        )
-        draft = self._gemini.generate_structured(prompt, ToolSelectionDraft, temperature=0.1)
-
+        """Enforce ToolRegistry membership and least-privilege constraints."""
         has_csv = any(d.file_type == ".csv" for d in documents)
         selected: list[ToolSelection] = []
         reasons: dict[str, str] = {}
@@ -254,6 +255,50 @@ class DeclarativeAgentGenerator:
 
         return selected, reasons
 
+    def generate_retrieval_strategy(
+        self,
+        requirements: StructuredRequirements,
+        documents: list[DocumentInput],
+        units: list[DocumentUnit],
+        *,
+        collection_name: str,
+    ) -> tuple[ChunkingConfig, RetrievalConfig, str]:
+        """Generate validated chunking and retrieval configuration without invented metadata."""
+        doc_summary = summarize_documents(documents, units)
+        prompt = RETRIEVAL_CONFIG_GENERATOR_PROMPT.format(
+            requirements_json=requirements.model_dump_json(indent=2),
+            document_summary=doc_summary,
+        )
+        with telemetry_stage("agent_retrieval"):
+            draft = self._gemini.generate_structured(prompt, RetrievalStrategyDraft, temperature=0.1)
+        return self._validate_retrieval_draft(
+            draft,
+            documents,
+            units,
+            collection_name=collection_name,
+        )
+
+    def select_tools(
+        self,
+        requirements: StructuredRequirements,
+        documents: list[DocumentInput],
+        units: list[DocumentUnit],
+        *,
+        tool_registry: ToolRegistry | None = None,
+    ) -> tuple[list[ToolSelection], dict[str, str]]:
+        """Select least-privilege tools validated strictly against the real ToolRegistry."""
+        registry = tool_registry or self._tool_registry
+        specs = registry.list_specs()
+        doc_summary = summarize_documents(documents, units)
+        prompt = TOOL_SELECTION_PROMPT.format(
+            tools_json=json.dumps(specs, indent=2),
+            requirements_json=requirements.model_dump_json(indent=2),
+            document_summary=doc_summary,
+        )
+        with telemetry_stage("agent_tools"):
+            draft = self._gemini.generate_structured(prompt, ToolSelectionDraft, temperature=0.1)
+        return self._validate_tool_selection_draft(draft, documents, registry=registry)
+
     def generate_output_contract(
         self,
         requirements: StructuredRequirements,
@@ -264,7 +309,8 @@ class DeclarativeAgentGenerator:
             requirements_json=requirements.model_dump_json(indent=2),
             groundability_json=groundability.model_dump_json(indent=2),
         )
-        return self._gemini.generate_structured(prompt, OutputContract, temperature=0.1)
+        with telemetry_stage("agent_output_contract"):
+            return self._gemini.generate_structured(prompt, OutputContract, temperature=0.1)
 
     def generate(
         self,
@@ -283,25 +329,43 @@ class DeclarativeAgentGenerator:
                 "Cannot generate agent without Groundability Guard approval (can_proceed=True)."
             )
 
-        prompt_draft = self.generate_system_prompt(requirements, groundability, documents, units)
+        registry = tool_registry or self._tool_registry
+        doc_summary = summarize_documents(documents, units)
+        prompt = CONSOLIDATED_AGENT_GENERATOR_PROMPT.format(
+            tools_json=json.dumps(registry.list_specs(), indent=2),
+            requirements_json=requirements.model_dump_json(indent=2),
+            groundability_json=groundability.model_dump_json(indent=2),
+            document_summary=doc_summary,
+        )
+        with telemetry_stage("agent_generation"):
+            composite_draft = self._gemini.generate_structured(
+                prompt,
+                AgentGenerationDraft,
+                temperature=0.15,
+            )
+
+        prompt_draft = self._finalize_prompt_draft(
+            composite_draft.system_prompt_draft,
+            requirements,
+            groundability,
+        )
         agent_slug = _slugify(prompt_draft.agent_name)
         unique_suffix = uuid4().hex[:8]
         agent_id = f"{agent_slug}_{unique_suffix}"
         collection_name = f"col_{agent_slug}_{unique_suffix}"
 
-        chunking, retrieval, retrieval_rationale = self.generate_retrieval_strategy(
-            requirements,
+        chunking, retrieval, retrieval_rationale = self._validate_retrieval_draft(
+            composite_draft.retrieval_strategy_draft,
             documents,
             units,
             collection_name=collection_name,
         )
-        tools, tool_reasons = self.select_tools(
-            requirements,
+        tools, tool_reasons = self._validate_tool_selection_draft(
+            composite_draft.tool_selection_draft,
             documents,
-            units,
-            tool_registry=tool_registry,
+            registry=registry,
         )
-        output_contract = self.generate_output_contract(requirements, groundability)
+        output_contract = OutputContract.model_validate(composite_draft.output_contract)
 
         limitations = [
             f"{f.topic} ({f.verdict.value}): {f.gap_description or f.evidence_summary}"
@@ -310,6 +374,10 @@ class DeclarativeAgentGenerator:
             and f.verdict
             in (GroundabilityVerdict.PARTIALLY_SUPPORTED, GroundabilityVerdict.UNSUPPORTED)
         ]
+
+        telem = getattr(self._gemini, "telemetry", None)
+        if telem is not None and hasattr(telem, "record_efficiency"):
+            telem.record_efficiency(stage="agent_generation", requests_saved=3)
 
         return DeclarativeAgentDefinition(
             agent_id=agent_id,
@@ -336,6 +404,9 @@ class DeclarativeAgentGenerator:
                 "tool_reasons": tool_reasons,
                 "groundability_verdict": groundability.overall_verdict.value,
                 "approved_with_gaps": groundability.approved_with_gaps,
+                "consolidated_agent_generation": True,
+                "agent_generation_requests": 1,
+                "agent_generation_requests_saved": 3,
             },
         )
 

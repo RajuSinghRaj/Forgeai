@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from forgeai.intake.interviewer import summarize_documents
 from forgeai.llm.gemini_client import GeminiClient
+from forgeai.llm.telemetry import telemetry_stage
 from forgeai.prompts.templates import GROUNDABILITY_GUARD_PROMPT
 from forgeai.retrieval.chunker import chunk_units
 from forgeai.retrieval.embeddings import EmbeddingProvider, LocalSentenceTransformerEmbeddings
@@ -70,11 +71,12 @@ class GroundabilityGuard:
             topic_evidence=formatted_evidence,
         )
 
-        raw_report = self._gemini.generate_structured(
-            prompt,
-            GroundabilityReport,
-            temperature=0.0,
-        )
+        with telemetry_stage("groundability"):
+            raw_report = self._gemini.generate_structured(
+                prompt,
+                GroundabilityReport,
+                temperature=0.0,
+            )
         return self._enforce_invariants(
             raw_report,
             requirements=requirements,

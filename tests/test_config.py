@@ -61,3 +61,115 @@ def test_valid_env_config_and_lazy_client(monkeypatch: pytest.MonkeyPatch) -> No
     assert summary["api_key_present"] is True
     assert "test-only-key-value" not in str(summary)
 
+
+def test_gemini_client_retries_429_and_503_with_sleep_hook(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    monkeypatch.setenv("GEMINI_API_KEY", "test-only-key-value")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+
+    settings = ForgeSettings(_env_file=None, artifacts_dir=tmp_path / "artifacts")
+    sleeps: list[float] = []
+    calls = 0
+
+    class _FakeResp:
+        text = "ok"
+
+    class _FakeModels:
+        def generate_content(self, **_kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise RuntimeError("429 RESOURCE_EXHAUSTED. Please retry in 12.5s. 'retryDelay': '12s'")
+            if calls == 2:
+                raise RuntimeError("503 UNAVAILABLE. high demand")
+            return _FakeResp()
+
+    class _FakeSDK:
+        models = _FakeModels()
+
+    client = GeminiClient(settings=settings, max_retries=3, base_backoff_seconds=2.0, sleep_fn=sleeps.append)
+    client._client = _FakeSDK()
+
+    assert client.generate_text("hello") == "ok"
+    assert calls == 3
+    assert sleeps == [14.5, 2.0]
+
+
+def test_gemini_client_does_not_retry_404(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    monkeypatch.setenv("GEMINI_API_KEY", "test-only-key-value")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+
+    settings = ForgeSettings(_env_file=None, artifacts_dir=tmp_path / "artifacts")
+    sleeps: list[float] = []
+
+    class _FakeModels:
+        def generate_content(self, **_kwargs):
+            raise RuntimeError("404 NOT_FOUND")
+
+    class _FakeSDK:
+        models = _FakeModels()
+
+    client = GeminiClient(settings=settings, max_retries=3, sleep_fn=sleeps.append)
+    client._client = _FakeSDK()
+
+    with pytest.raises(RuntimeError, match="404 NOT_FOUND"):
+        client.generate_text("hello")
+    assert sleeps == []
+
+
+def test_gemini_client_retries_timeout_errors(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    monkeypatch.setenv("GEMINI_API_KEY", "test-only-key-value")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+
+    settings = ForgeSettings(_env_file=None, artifacts_dir=tmp_path / "artifacts")
+    sleeps: list[float] = []
+    calls = 0
+
+    class _FakeResp:
+        text = "recovered"
+
+    class _FakeModels:
+        def generate_content(self, **_kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise TimeoutError("request timed out")
+            return _FakeResp()
+
+    class _FakeSDK:
+        models = _FakeModels()
+
+    client = GeminiClient(settings=settings, max_retries=2, base_backoff_seconds=1.5, sleep_fn=sleeps.append)
+    client._client = _FakeSDK()
+
+    assert client.generate_text("hello") == "recovered"
+    assert calls == 2
+    assert sleeps == [1.5]
+
+
+def test_gemini_client_does_not_retry_daily_quota_429(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    monkeypatch.setenv("GEMINI_API_KEY", "test-only-key-value")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+
+    settings = ForgeSettings(_env_file=None, artifacts_dir=tmp_path / "artifacts")
+    sleeps: list[float] = []
+
+    class _FakeModels:
+        def generate_content(self, **_kwargs):
+            raise RuntimeError(
+                "429 RESOURCE_EXHAUSTED. GenerateRequestsPerDayPerProjectPerModel-FreeTier 'retryDelay': '49463s'"
+            )
+
+    class _FakeSDK:
+        models = _FakeModels()
+
+    client = GeminiClient(settings=settings, max_retries=4, sleep_fn=sleeps.append)
+    client._client = _FakeSDK()
+
+    with pytest.raises(RuntimeError, match="429 RESOURCE_EXHAUSTED"):
+        client.generate_text("hello")
+    assert sleeps == []
+

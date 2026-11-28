@@ -19,6 +19,7 @@ from forgeai.generator import (
 )
 from forgeai.retrieval import load_document_folder
 from forgeai.schemas import (
+    AgentGenerationDraft,
     BriefInput,
     DeclarativeAgentDefinition,
     GroundabilityFinding,
@@ -263,47 +264,49 @@ def test_complete_agent_generation_guardrails_serialization_and_persistence(
     approved_gap_report = _sample_groundability(can_proceed=True, with_gaps=True)
     stub = _StubGeminiClient(
         responses=[
-            SystemPromptDraft(
-                agent_name="Field Operations Assistant",
-                description="Grounded assistant for field technicians inspecting maintenance manuals and part records.",
-                domain_summary="Equipment maintenance and spare-part operations.",
-                system_prompt=(
-                    "You are a precise technical assistant for field technicians. "
-                    "Answer strictly from retrieved manual and CSV records with citations."
+            AgentGenerationDraft(
+                system_prompt_draft=SystemPromptDraft(
+                    agent_name="Field Operations Assistant",
+                    description="Grounded assistant for field technicians inspecting maintenance manuals and part records.",
+                    domain_summary="Equipment maintenance and spare-part operations.",
+                    system_prompt=(
+                        "You are a precise technical assistant for field technicians. "
+                        "Answer strictly from retrieved manual and CSV records with citations."
+                    ),
                 ),
-            ),
-            RetrievalStrategyDraft(
-                chunk_size=800,
-                chunk_overlap=120,
-                csv_rows_per_unit=1,
-                top_k=5,
-                score_threshold=0.2,
-                metadata_filters=[],
-            ),
-            ToolSelectionDraft(
-                selected_tools=[
-                    ToolSelectionDraftItem(
-                        name="retrieve_documents",
-                        purpose="Search maintenance manuals and indexed records.",
-                        reason="Needed for grounded retrieval.",
-                    ),
-                    ToolSelectionDraftItem(
-                        name="inspect_csv_records",
-                        purpose="Filter structured rows in parts.csv.",
-                        reason="Corpus includes CSV part tables.",
-                    ),
-                ]
-            ),
-            OutputContract(
-                response_format="structured_sections",
-                require_citations=True,
-                citation_format="[source_file | unit]",
-                response_sections=["Answer", "Evidence", "Limitations"],
-                required_fields=["summary", "source_citation"],
-                optional_fields=["part_id"],
-                formatting_constraints=["Max 300 words"],
-                validation_rules=["Every factual claim must cite a source_file."],
-            ),
+                retrieval_strategy_draft=RetrievalStrategyDraft(
+                    chunk_size=800,
+                    chunk_overlap=120,
+                    csv_rows_per_unit=1,
+                    top_k=5,
+                    score_threshold=0.2,
+                    metadata_filters=[],
+                ),
+                tool_selection_draft=ToolSelectionDraft(
+                    selected_tools=[
+                        ToolSelectionDraftItem(
+                            name="retrieve_documents",
+                            purpose="Search maintenance manuals and indexed records.",
+                            reason="Needed for grounded retrieval.",
+                        ),
+                        ToolSelectionDraftItem(
+                            name="inspect_csv_records",
+                            purpose="Filter structured rows in parts.csv.",
+                            reason="Corpus includes CSV part tables.",
+                        ),
+                    ]
+                ),
+                output_contract=OutputContract(
+                    response_format="structured_sections",
+                    require_citations=True,
+                    citation_format="[source_file | unit]",
+                    response_sections=["Answer", "Evidence", "Limitations"],
+                    required_fields=["summary", "source_citation"],
+                    optional_fields=["part_id"],
+                    formatting_constraints=["Max 300 words"],
+                    validation_rules=["Every factual claim must cite a source_file."],
+                ),
+            )
         ]
     )
     generator = DeclarativeAgentGenerator(gemini_client=stub, tool_registry=registry)
@@ -346,25 +349,29 @@ def test_langgraph_phase3_integration_and_failure_handling(tmp_path: Path) -> No
     stub = _StubGeminiClient(
         responses=[
             ground_ok,
-            SystemPromptDraft(
-                agent_name="Maintenance Agent",
-                description="Answers grounded maintenance and part queries for technicians.",
-                domain_summary="Equipment maintenance operations.",
-                system_prompt="Answer strictly from supplied documents and tools using citations.",
-            ),
-            RetrievalStrategyDraft(chunk_size=600, chunk_overlap=100, top_k=4),
-            ToolSelectionDraft(
-                selected_tools=[
-                    ToolSelectionDraftItem(
-                        name="retrieve_documents",
-                        purpose="Retrieve maintenance passages.",
-                        reason="Core grounded search.",
-                    )
-                ]
-            ),
-            OutputContract(
-                response_format="markdown",
-                required_fields=["answer", "citations"],
+            AgentGenerationDraft(
+                system_prompt_draft=SystemPromptDraft(
+                    agent_name="Maintenance Agent",
+                    description="Answers grounded maintenance and part queries for technicians.",
+                    domain_summary="Equipment maintenance operations.",
+                    system_prompt="Answer strictly from supplied documents and tools using citations.",
+                ),
+                retrieval_strategy_draft=RetrievalStrategyDraft(
+                    chunk_size=600, chunk_overlap=100, top_k=4
+                ),
+                tool_selection_draft=ToolSelectionDraft(
+                    selected_tools=[
+                        ToolSelectionDraftItem(
+                            name="retrieve_documents",
+                            purpose="Retrieve maintenance passages.",
+                            reason="Core grounded search.",
+                        )
+                    ]
+                ),
+                output_contract=OutputContract(
+                    response_format="markdown",
+                    required_fields=["answer", "citations"],
+                ),
             ),
         ]
     )

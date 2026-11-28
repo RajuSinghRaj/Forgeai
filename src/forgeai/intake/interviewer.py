@@ -7,6 +7,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from forgeai.llm.gemini_client import GeminiClient
+from forgeai.llm.telemetry import telemetry_stage
 from forgeai.prompts.templates import INTAKE_INTERVIEWER_PROMPT, REQUIREMENTS_SYNTHESIS_PROMPT
 from forgeai.retrieval.loaders import DocumentUnit
 from forgeai.schemas.intake import (
@@ -72,11 +73,12 @@ class IntakeInterviewer:
             brief_text=brief.brief_text,
             document_summary=doc_summary,
         )
-        batch = self._gemini.generate_structured(
-            prompt,
-            ClarifyingQuestionBatch,
-            temperature=0.2,
-        )
+        with telemetry_stage("intake_questions"):
+            batch = self._gemini.generate_structured(
+                prompt,
+                ClarifyingQuestionBatch,
+                temperature=0.2,
+            )
         seen_questions: set[str] = set()
         unique: list[ClarifyingQuestion] = []
         for idx, item in enumerate(batch.questions, start=1):
@@ -117,11 +119,12 @@ class IntakeInterviewer:
             clarifying_qa=qa_block,
             document_summary=doc_summary,
         )
-        requirements = self._gemini.generate_structured(
-            prompt,
-            StructuredRequirements,
-            temperature=0.1,
-        )
+        with telemetry_stage("requirements_synthesis"):
+            requirements = self._gemini.generate_structured(
+                prompt,
+                StructuredRequirements,
+                temperature=0.1,
+            )
         # Preserve the exact user-supplied answers (up to 5) deterministically.
         return requirements.model_copy(update={"clarifying_qa": normalized_answers[:5]})
 

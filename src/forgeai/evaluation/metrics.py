@@ -17,12 +17,19 @@ def _category_pass_rate(results: list[EvalCaseResult], category: EvalCaseCategor
     return round(sum(1 for r in subset if r.passed) / len(subset), 4)
 
 
-def compute_scorecard(results: list[EvalCaseResult], iteration: int) -> IterationScorecard:
+def compute_scorecard(
+    results: list[EvalCaseResult],
+    iteration: int,
+    *,
+    is_partial: bool = False,
+    expected_total_cases: int | None = None,
+) -> IterationScorecard:
     """Compute an `IterationScorecard` strictly from observed `EvalCaseResult` items."""
     total = len(results)
     failure_counts: dict[FailureClassification, int] = {
         FailureClassification.RETRIEVAL_MISS: 0,
         FailureClassification.PROMPT_DEFECT: 0,
+        FailureClassification.CONTRACT_VIOLATION: 0,
         FailureClassification.HALLUCINATION: 0,
         FailureClassification.WRONG_REFUSAL: 0,
     }
@@ -43,6 +50,8 @@ def compute_scorecard(results: list[EvalCaseResult], iteration: int) -> Iteratio
             avg_correctness_score=0.0,
             refusal_accuracy=0.0,
             failure_counts=failure_counts,
+            is_partial=is_partial,
+            expected_total_cases=expected_total_cases,
         )
 
     passed = sum(1 for r in results if r.passed)
@@ -85,4 +94,6 @@ def compute_scorecard(results: list[EvalCaseResult], iteration: int) -> Iteratio
         avg_correctness_score=round(avg_correctness, 4),
         refusal_accuracy=round(refusal_acc, 4),
         failure_counts=failure_counts,
+        is_partial=is_partial,
+        expected_total_cases=expected_total_cases,
     )

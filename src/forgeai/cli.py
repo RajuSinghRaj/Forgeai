@@ -11,8 +11,9 @@ from typing import Any, Literal
 from forgeai.config import ForgeSettings, load_settings
 from forgeai.llm.gemini_client import GeminiClient
 from forgeai.retrieval.embeddings import EmbeddingProvider
+from forgeai.retrieval.loaders import load_document_folder
 from forgeai.schemas.intake import BriefInput
-from forgeai.workflow import FactoryState, build_factory_graph
+from forgeai.workflow import FactoryState, build_factory_graph, load_run_checkpoint
 
 
 def _write_json(path: Path, data: Any) -> str:
@@ -174,15 +175,76 @@ def run_factory_cli(
     return state
 
 
+def resume_factory_cli(
+    *,
+    resume_dir: Path,
+    out_dir: Path | None = None,
+    max_iterations: int | None = None,
+    settings: ForgeSettings | None = None,
+    gemini_client: GeminiClient | None = None,
+    embedding_provider: EmbeddingProvider | None = None,
+    execution_metadata: dict[str, Any] | None = None,
+) -> FactoryState:
+    """Resume an interrupted ForgeAI run from a saved checkpoint directory."""
+    cfg = settings or load_settings()
+    loaded = load_run_checkpoint(resume_dir)
+    brief: BriefInput = loaded["brief_input"]
+    docs_dir = brief.documents_dir
+    if docs_dir.exists() and docs_dir.is_dir():
+        docs, units = load_document_folder(
+            docs_dir, csv_rows_per_unit=loaded.get("csv_rows_per_unit", cfg.csv_rows_per_unit)
+        )
+        loaded["documents"] = docs
+        loaded["document_units"] = units
+    else:
+        loaded.setdefault("document_units", [])
+
+    if max_iterations is not None:
+        loaded["max_iterations"] = min(max(max_iterations, 0), 3)
+    loaded.setdefault("target_pass_rate", cfg.target_pass_rate)
+
+    if loaded.get("final_report") is not None:
+        state = loaded
+    else:
+        graph = build_factory_graph(
+            settings=cfg,
+            gemini_client=gemini_client,
+            embedding_provider=embedding_provider,
+        )
+        state = graph.invoke(loaded)
+
+    target_out = out_dir or Path(resume_dir)
+    persist_factory_run_bundle(
+        target_out,
+        brief_text=brief.brief_text,
+        state=state,
+        execution_metadata=execution_metadata
+        or {
+            "execution_mode": "live_gemini_resumed",
+            "live_gemini_verified": True,
+            "gemini_model": cfg.gemini_model,
+            "embedding_model": cfg.embedding_model,
+            "resumed_from": str(resume_dir),
+        },
+    )
+    return state
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="ForgeAI Generic Agent Factory CLI")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    run_p = sub.add_parser("run", help="Run the factory on a brief and document folder.")
-    run_p.add_argument("--brief", required=True, help="Path to brief text file or literal brief text.")
-    run_p.add_argument("--docs", required=True, type=Path, help="Path to source document folder.")
-    run_p.add_argument("--out", required=True, type=Path, help="Output artifact bundle directory.")
+    run_p = sub.add_parser("run", help="Run or resume the factory on a brief and document folder.")
+    run_p.add_argument("--brief", required=False, help="Path to brief text file or literal brief text.")
+    run_p.add_argument("--docs", required=False, type=Path, help="Path to source document folder.")
+    run_p.add_argument("--out", required=False, type=Path, help="Output artifact bundle directory.")
     run_p.add_argument("--run-id", default="forgeai_cli_run", help="Identifier for the factory run.")
+    run_p.add_argument(
+        "--resume",
+        required=False,
+        type=Path,
+        help="Path to a saved run checkpoint directory (e.g. artifacts/runs/<run_id>).",
+    )
     run_p.add_argument(
         "--unattended-policy",
         choices=["stop_for_clarification", "proceed_with_assumptions"],
@@ -193,6 +255,38 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
     if args.command == "run":
+        if args.resume is not None:
+            try:
+                state = resume_factory_cli(
+                    resume_dir=args.resume,
+                    out_dir=args.out,
+                    max_iterations=args.max_iterations,
+                )
+            except Exception as exc:
+                err_out = args.out or args.resume
+                err_out.mkdir(parents=True, exist_ok=True)
+                _write_json(
+                    err_out / "run_error.json",
+                    {"run_id": args.resume.name, "error": str(exc), "error_type": type(exc).__name__},
+                )
+                print(f"ForgeAI resume failed: {exc}", file=sys.stderr)
+                return 1
+            run_label = state.get("run_id") or args.resume.name
+            report = state.get("final_report")
+            if report is not None:
+                print(
+                    f"Run {run_label} resumed & finished: pass_rate={report.final_pass_rate:.0%}, "
+                    f"stop_reason={report.stop_reason}"
+                )
+            else:
+                print(
+                    f"Run {run_label} resumed (awaiting_user_answers={state.get('awaiting_user_answers')})."
+                )
+            return 0
+
+        if not args.brief or not args.docs or not args.out:
+            parser.error("--brief, --docs, and --out are required unless --resume is supplied.")
+
         brief_arg = Path(args.brief)
         brief_text = brief_arg.read_text(encoding="utf-8") if brief_arg.exists() else args.brief
         try:

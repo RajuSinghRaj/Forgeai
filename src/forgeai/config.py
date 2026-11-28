@@ -47,6 +47,7 @@ class ForgeSettings(BaseSettings):
     )
     target_pass_rate: float = Field(default=0.90, ge=0.0, le=1.0)
     min_eval_cases: int = Field(default=20, ge=1)
+    judge_batch_size: int = Field(default=5, ge=1, le=20, alias="JUDGE_BATCH_SIZE")
     csv_rows_per_unit: int = Field(default=1, ge=1, le=500, alias="CSV_ROWS_PER_UNIT")
     default_chunk_size: int = Field(default=800, ge=100, le=4000)
     default_chunk_overlap: int = Field(default=120, ge=0, le=1000)
@@ -91,11 +92,35 @@ class ForgeSettings(BaseSettings):
         }
 
 
+def _read_hosting_secret(key: str) -> str | None:
+    """Safely read a secret from Streamlit hosting secrets when available."""
+    try:
+        import streamlit as st
+
+        secrets = getattr(st, "secrets", None)
+        if secrets is not None and key in secrets:
+            value = str(secrets[key]).strip()
+            return value or None
+    except Exception:
+        return None
+    return None
+
+
 def load_settings(env_file: str | Path | None = ".env") -> ForgeSettings:
-    """Load settings from environment variables and an optional dotenv file."""
-    if env_file is None:
-        return ForgeSettings(_env_file=None)
-    return ForgeSettings(_env_file=env_file)
+    """Load settings from environment variables, optional `.env`, and hosting secrets."""
+    settings = ForgeSettings(_env_file=None) if env_file is None else ForgeSettings(_env_file=env_file)
+    updates: dict[str, str] = {}
+    if not (settings.gemini_api_key or "").strip():
+        secret_key = _read_hosting_secret("GEMINI_API_KEY")
+        if secret_key:
+            updates["gemini_api_key"] = secret_key
+    if not (settings.gemini_model or "").strip():
+        secret_model = _read_hosting_secret("GEMINI_MODEL")
+        if secret_model:
+            updates["gemini_model"] = secret_model
+    if updates:
+        return settings.model_copy(update=updates)
+    return settings
 
 
 SupportedDocExtension = Literal[".pdf", ".csv", ".txt", ".md"]

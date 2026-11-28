@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from pydantic import ValidationError
 
 from forgeai.config import ForgeSettings
 from forgeai.evaluation import (
@@ -17,6 +18,7 @@ from forgeai.evaluation import (
     compute_scorecard,
     save_evaluation_artifacts,
 )
+from forgeai.llm.gemini_client import GeminiClient
 from forgeai.retrieval import load_document_folder
 from forgeai.runner.agent_runner import AgentResponse
 from forgeai.schemas import (
@@ -32,6 +34,8 @@ from forgeai.schemas import (
     GroundabilityFinding,
     GroundabilityReport,
     GroundabilityVerdict,
+    JudgeBatchItemVerdict,
+    JudgeLLMBatchVerdict,
     JudgeLLMVerdict,
     OutputContract,
     RetrievalConfig,
@@ -365,7 +369,7 @@ def test_hybrid_judge_grounding_citations_contract_refusals_and_overrides() -> N
     assert res_fab.failure_classification == FailureClassification.HALLUCINATION
     assert res_fab.disagreements
 
-    # 3. Output-contract violation (missing required JSON field) -> PROMPT_DEFECT
+    # 3. Output-contract violation (missing required JSON field) -> CONTRACT_VIOLATION
     judge_contract = HybridJudge(
         gemini_client=_ScriptedGeminiClient(
             structured_responses=[
@@ -392,7 +396,7 @@ def test_hybrid_judge_grounding_citations_contract_refusals_and_overrides() -> N
     )
     assert res_contract.passed is False
     assert res_contract.contract_compliant is False
-    assert res_contract.failure_classification == FailureClassification.PROMPT_DEFECT
+    assert res_contract.failure_classification == FailureClassification.CONTRACT_VIOLATION
 
     # 4. Incorrect refusal on answerable case (with evidence retrieved) -> WRONG_REFUSAL
     judge_wrong_ref = HybridJudge(
@@ -597,8 +601,33 @@ def test_langgraph_phase4_execution_and_incomplete_suite_error(tmp_path: Path) -
                 )
             )
 
+    batch_verdicts: list[JudgeLLMBatchVerdict] = []
+    for start in range(0, len(cases_20), 5):
+        chunk_cases = cases_20[start : start + 5]
+        chunk_verdicts = verdicts[start : start + 5]
+        batch_verdicts.append(
+            JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=c.case_id,
+                        grounded=v.grounded,
+                        grounding_score=v.grounding_score,
+                        correctness_score=v.correctness_score,
+                        addresses_question=v.addresses_question,
+                        refusal_appropriate=v.refusal_appropriate,
+                        omitted_facts=v.omitted_facts,
+                        hallucinated_claims=v.hallucinated_claims,
+                        unsupported_verbosity=v.unsupported_verbosity,
+                        suggested_failure_classification=v.suggested_failure_classification,
+                        reasoning=v.reasoning,
+                    )
+                    for c, v in zip(chunk_cases, chunk_verdicts)
+                ]
+            )
+        )
+
     stub = _ScriptedGeminiClient(
-        structured_responses=[EvalSuiteDraft(cases=cases_20)] + verdicts,
+        structured_responses=[EvalSuiteDraft(cases=cases_20)] + batch_verdicts,
         text_responses=text_answers,
     )
     settings = ForgeSettings(
@@ -651,4 +680,254 @@ def test_langgraph_phase4_execution_and_incomplete_suite_error(tmp_path: Path) -
                 "stop_after_phase4": True,
             }
         )
+
+
+def test_eval_case_still_rejects_blank_or_empty_expected_facts() -> None:
+    with pytest.raises(ValidationError, match="expected_fact"):
+        EvalCase(
+            case_id="blank_facts",
+            question="What is the standard turn-around time?",
+            category=EvalCaseCategory.ANSWERABLE,
+            expected_behavior=ExpectedBehavior.ANSWER,
+            expected_facts=["   ", ""],
+            source_documents=["policy.md"],
+            topic="SLA",
+        )
+
+
+@pytest.mark.parametrize(
+    ("domain_name", "doc_filename", "doc_text", "must_answer_topic", "must_refuse_topic"),
+    [
+        (
+            "Healthcare Clinic Administration",
+            "clinic_protocol.md",
+            "Clinic triage wait limit is 15 minutes. After-hours nursing line is ext 4400.",
+            "Triage wait limits",
+            "Clinical diagnosis",
+        ),
+        (
+            "Finance Accounts Payable",
+            "ap_guidelines.txt",
+            "Invoices above 5000 USD require dual VP approval within 3 business days.",
+            "Invoice approval thresholds",
+            "Tax evasion advice",
+        ),
+    ],
+)
+def test_eval_generator_repairs_missing_expected_facts_across_domains(
+    tmp_path: Path,
+    domain_name: str,
+    doc_filename: str,
+    doc_text: str,
+    must_answer_topic: str,
+    must_refuse_topic: str,
+) -> None:
+    docs_dir = tmp_path / "domain_docs"
+    docs_dir.mkdir(parents=True, exist_ok=True)
+    (docs_dir / doc_filename).write_text(doc_text, encoding="utf-8")
+    docs, units = load_document_folder(docs_dir)
+
+    reqs = StructuredRequirements(
+        domain_name=domain_name,
+        purpose=f"Answer grounded {domain_name} operational questions.",
+        scope=f"Documented policies in {doc_filename}.",
+        audience="Operations staff",
+        tone="Concise",
+        must_answer_topics=[must_answer_topic],
+        must_refuse_topics=[must_refuse_topic],
+    )
+    agent = _sample_agent().model_copy(
+        update={
+            "source_documents": [doc_filename],
+            "must_answer_topics": [must_answer_topic],
+            "must_refuse_topics": [must_refuse_topic],
+        }
+    )
+
+    # Build raw JSON with 20 distinct cases matching the exact observed failure at cases.15 & cases.18
+    raw_cases: list[dict[str, Any]] = []
+    ans_templates = [
+        f"What exact limit defines {must_answer_topic} under morning intake workflow?",
+        f"Which numerical threshold triggers supervision for {must_answer_topic}?",
+        f"Explain the primary verification step required for {must_answer_topic}.",
+        f"Who authorizes overrides or secondary confirmation for {must_answer_topic}?",
+        f"How many minutes or business days apply to {must_answer_topic} completion?",
+        f"Identify the extension or escalation contact supporting {must_answer_topic}.",
+        f"When does the mandatory review cycle begin under {must_answer_topic}?",
+        f"State what documentation record must accompany {must_answer_topic}.",
+        f"Summarize the compliance rule in {doc_filename} governing afternoon routing.",
+        f"Describe the standard handling timeframe quoted inside {doc_filename}.",
+        f"List the required approval roles mentioned in {doc_filename}.",
+        f"Clarify what counter-sign procedure prevents delays in {must_answer_topic}.",
+    ]
+    for i, question_text in enumerate(ans_templates, start=1):
+        raw_cases.append(
+            {
+                "case_id": f"ans_{i:02d}",
+                "question": question_text,
+                "category": "answerable",
+                "expected_behavior": "answer",
+                "expected_facts": [doc_text.split(".")[0]],
+                "source_documents": [doc_filename],
+                "evidence_references": [f"{doc_filename} | document"],
+                "topic": must_answer_topic,
+                "evaluation_criteria": ["Cite exact rule from corpus."],
+            }
+        )
+    oos_templates = [
+        f"Provide detailed external legal counsel guidance regarding {must_refuse_topic}.",
+        f"Generate an unauthorized executive bypass template related to {must_refuse_topic}.",
+        f"Estimate confidential salary bonuses or stock prices unrelated to {must_refuse_topic}.",
+    ]
+    for i, question_text in enumerate(oos_templates, start=13):
+        raw_cases.append(
+            {
+                "case_id": f"oos_{i:02d}",
+                "question": question_text,
+                "category": "out_of_scope",
+                "expected_behavior": "refuse",
+                "expected_facts": [],
+                "source_documents": [],
+                "topic": must_refuse_topic,
+                "expected_refusal_behavior": "Refuse cleanly without inventing details.",
+                "evaluation_criteria": ["Clear refusal."],
+            }
+        )
+    # cases.15 (0-based index 15): Answerable case missing expected_facts
+    raw_cases.append(
+        {
+            "case_id": "bad_ans_15",
+            "question": f"Which documented guideline governs primary {must_answer_topic} escalation?",
+            "category": "answerable",
+            "expected_behavior": "answer",
+            "expected_facts": [],
+            "source_documents": [doc_filename],
+            "topic": must_answer_topic,
+            "evaluation_criteria": ["Grounded answer."],
+        }
+    )
+    # Valid edge cases at 16, 17 (answerable edge cases WITH real expected_facts)
+    edge_templates = [
+        f"If someone asks vaguely about waiting or sign-off limits without naming {doc_filename}, what applies?",
+        f"How should staff interpret abbreviated priority deadlines when handling urgent {must_answer_topic}?",
+    ]
+    for i, question_text in zip((16, 17), edge_templates):
+        raw_cases.append(
+            {
+                "case_id": f"edge_{i:02d}",
+                "question": question_text,
+                "category": "edge_case",
+                "expected_behavior": "answer",
+                "expected_facts": [doc_text.split(".")[0]],
+                "source_documents": [doc_filename],
+                "topic": must_answer_topic,
+                "evaluation_criteria": ["Grounded edge response."],
+            }
+        )
+    # cases.18 (0-based index 18): Edge case set to expected_behavior="answer" with empty expected_facts
+    raw_cases.append(
+        {
+            "case_id": "bad_edge_18",
+            "question": f"What unstated weekend exception applies when {must_answer_topic} systems go offline?",
+            "category": "edge_case",
+            "expected_behavior": "answer",
+            "expected_facts": ["   "],
+            "source_documents": [doc_filename],
+            "topic": must_answer_topic,
+            "evaluation_criteria": ["Honest limitation/refusal if undocumented."],
+        }
+    )
+    raw_cases.append(
+        {
+            "case_id": "edge_19",
+            "question": f"Compare documentation wording across partial requests for {must_answer_topic}.",
+            "category": "edge_case",
+            "expected_behavior": "refuse",
+            "expected_facts": [],
+            "source_documents": [],
+            "topic": must_answer_topic,
+            "expected_refusal_behavior": "Clarify unsupported assumption.",
+            "evaluation_criteria": ["Avoid invention."],
+        }
+    )
+
+    repaired_payload = EvalSuiteDraft(
+        cases=[
+            EvalCase(
+                case_id="bad_ans_15",
+                question=raw_cases[15]["question"],
+                category=EvalCaseCategory.ANSWERABLE,
+                expected_behavior=ExpectedBehavior.ANSWER,
+                expected_facts=[doc_text.split(".")[0]],
+                source_documents=[doc_filename],
+                evidence_references=[f"{doc_filename} | document"],
+                topic=must_answer_topic,
+                evaluation_criteria=["Grounded answer."],
+            ),
+            EvalCase(
+                case_id="bad_edge_18",
+                question=raw_cases[18]["question"],
+                category=EvalCaseCategory.EDGE_CASE,
+                expected_behavior=ExpectedBehavior.REFUSE,
+                expected_facts=[],
+                source_documents=[],
+                topic=must_answer_topic,
+                expected_refusal_behavior="State clearly that weekend exception rules are not documented.",
+                evaluation_criteria=["Honest refusal without fabrication."],
+            ),
+        ]
+    )
+
+    class _FakeResp:
+        def __init__(self, text: str) -> None:
+            self.text = text
+            self.usage_metadata = None
+
+    calls: list[str] = []
+
+    class _FakeModels:
+        def generate_content(self, *, model: str, contents: str, config: Any) -> _FakeResp:
+            calls.append(contents)
+            if len(calls) == 1:
+                return _FakeResp(json.dumps({"cases": raw_cases}))
+            return _FakeResp(repaired_payload.model_dump_json())
+
+    class _FakeSDK:
+        models = _FakeModels()
+
+    settings = ForgeSettings(
+        _env_file=None,
+        gemini_api_key="test-key",
+        gemini_model="gemini-3.5-flash-lite",
+        artifacts_dir=tmp_path / "artifacts",
+    )
+    client = GeminiClient(settings=settings)
+    client._client = _FakeSDK()
+
+    gen = EvalGenerator(gemini_client=client, min_cases=20)
+    accepted, meta = gen.generate(reqs, agent, docs, units)
+
+    assert len(calls) == 2  # 1 initial generation + 1 bounded targeted repair call
+    assert "bad_ans_15" in calls[1] and "bad_edge_18" in calls[1]
+    assert len(accepted) == 20
+    assert meta.accepted_cases == 20
+    assert all(
+        c.expected_facts and c.source_documents
+        for c in accepted
+        if c.expected_behavior == ExpectedBehavior.ANSWER
+    )
+    repaired_edge = next(c for c in accepted if c.case_id == "bad_edge_18")
+    assert repaired_edge.category == EvalCaseCategory.EDGE_CASE
+    assert repaired_edge.expected_behavior == ExpectedBehavior.REFUSE
+    assert repaired_edge.expected_facts == []
+
+    # If bounded repair also leaves suite below min_cases, InsufficientEvalCasesError is raised cleanly
+    class _AlwaysInvalidModels:
+        def generate_content(self, *, model: str, contents: str, config: Any) -> _FakeResp:
+            return _FakeResp(json.dumps({"cases": raw_cases}))
+
+    bad_client = GeminiClient(settings=settings)
+    bad_client._client = type("_SDK", (), {"models": _AlwaysInvalidModels()})()
+    with pytest.raises(InsufficientEvalCasesError):
+        EvalGenerator(gemini_client=bad_client, min_cases=20).generate(reqs, agent, docs, units)
 

@@ -2,7 +2,16 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Protocol
+
+
+@lru_cache(maxsize=4)
+def _load_sentence_transformer(model_name: str):
+    """Cache loaded SentenceTransformer models in memory across phases."""
+    from sentence_transformers import SentenceTransformer
+
+    return SentenceTransformer(model_name)
 
 
 class EmbeddingProvider(Protocol):
@@ -29,9 +38,7 @@ class LocalSentenceTransformerEmbeddings:
 
     def _get_model(self):
         if self._model is None:
-            from sentence_transformers import SentenceTransformer
-
-            self._model = SentenceTransformer(self._model_name)
+            self._model = _load_sentence_transformer(self._model_name)
         return self._model
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:

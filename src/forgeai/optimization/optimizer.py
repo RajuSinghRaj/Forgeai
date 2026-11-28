@@ -9,11 +9,16 @@ from uuid import uuid4
 
 from pydantic import BaseModel
 
+from forgeai.evaluation.early_stop import (
+    can_candidate_reach_acceptance,
+    prioritize_cases_for_candidate,
+)
 from forgeai.evaluation.judge import HybridJudge
 from forgeai.evaluation.suite_runner import run_evaluation_suite
 from forgeai.generator.agent_generator import _ensure_prompt_guardrails
 from forgeai.intake.interviewer import summarize_documents
 from forgeai.llm.gemini_client import GeminiClient
+from forgeai.llm.telemetry import telemetry_stage
 from forgeai.optimization.integrity import (
     snapshot_eval_suite,
     verify_eval_suite_integrity,
@@ -38,6 +43,7 @@ from forgeai.schemas.evaluation import (
     TargetedProposalItem,
 )
 from forgeai.schemas.intake import DocumentInput, GroundabilityReport, StructuredRequirements
+from forgeai.tools.registry import ToolRegistry
 
 ALLOWED_TARGETS_BY_FAILURE: dict[FailureClassification, set[str]] = {
     FailureClassification.RETRIEVAL_MISS: {
@@ -50,6 +56,10 @@ ALLOWED_TARGETS_BY_FAILURE: dict[FailureClassification, set[str]] = {
     FailureClassification.PROMPT_DEFECT: {
         "system_prompt",
         "output_contract.formatting_constraints",
+    },
+    FailureClassification.CONTRACT_VIOLATION: {
+        "output_contract.formatting_constraints",
+        "system_prompt",
     },
     FailureClassification.HALLUCINATION: {
         "system_prompt",
@@ -109,16 +119,20 @@ class CriticOptimizer:
         target_pass_rate: float = 0.90,
         gemini_model: str = "gemini-3.8-flash",
         embedding_model: str = "all-MiniLM-L6-v2",
+        judge_batch_size: int = 5,
     ) -> None:
         if not 0 <= max_iterations <= 3:
             raise ValueError("max_iterations must be between 0 and 3.")
         if not 0.0 <= target_pass_rate <= 1.0:
             raise ValueError("target_pass_rate must be between 0.0 and 1.0.")
+        if judge_batch_size < 1:
+            raise ValueError("judge_batch_size must be at least 1.")
         self._gemini = gemini_client or GeminiClient()
         self.max_iterations = max_iterations
         self.target_pass_rate = target_pass_rate
         self.gemini_model = gemini_model
         self.embedding_model = embedding_model
+        self.judge_batch_size = judge_batch_size
 
     @staticmethod
     def group_failures(
@@ -179,11 +193,12 @@ class CriticOptimizer:
             failing_cases_json=json.dumps(failing_detail, indent=2),
             document_summary=summarize_documents(documents, units),
         )
-        return self._gemini.generate_structured(
-            prompt,
-            OptimizationProposalDraft,
-            temperature=0.1,
-        )
+        with telemetry_stage("critic_optimizer"):
+            return self._gemini.generate_structured(
+                prompt,
+                OptimizationProposalDraft,
+                temperature=0.1,
+            )
 
     @staticmethod
     def apply_targeted_proposal(
@@ -431,6 +446,9 @@ class CriticOptimizer:
         vector_store: ChromaVectorStore | None = None,
         embedding_provider: EmbeddingProvider | None = None,
         judge: HybridJudge | None = None,
+        checkpoint_dir: Path | str | None = None,
+        documents_dir: Path | str | None = None,
+        tool_registry: ToolRegistry | None = None,
     ) -> OptimizationRunResult:
         """Run the complete bounded (0..3) optimization loop with full artifact persistence."""
         effective_run_id = run_id or f"{baseline_agent.agent_id}_{uuid4().hex[:6]}"
@@ -467,7 +485,40 @@ class CriticOptimizer:
                     break
 
                 observed_categories = list(grouped.keys())
+                actionable_categories = [
+                    cat for cat in observed_categories if cat in ALLOWED_TARGETS_BY_FAILURE
+                ]
                 failed_ids = [r.case_id for items in grouped.values() for r in items]
+
+                if not actionable_categories:
+                    stop_reason = "only_eval_case_defects_remaining"
+                    logs.append(
+                        OptimizationIterationLog(
+                            iteration=iteration,
+                            diagnosis_summary=(
+                                "Remaining failures are evaluation-case defects rather than "
+                                "agent defects; skipping prompt/retrieval mutation."
+                            ),
+                            observed_failure_categories=observed_categories,
+                            failed_case_ids=failed_ids,
+                            proposed_changes=[],
+                            targeted_changes=[],
+                            rejected_changes=[],
+                            before_scorecard=best_scorecard,
+                            after_scorecard=None,
+                            metric_deltas={},
+                            accepted=False,
+                            acceptance_reason=(
+                                "Evaluation-suite integrity prevents modifying frozen eval cases "
+                                "or mutating the agent for non-agent eval defects."
+                            ),
+                            remaining_failed_case_ids=failed_ids,
+                            agent_version_before=best_agent.version,
+                            agent_version_after=best_agent.version,
+                            stop_reason=stop_reason,
+                        )
+                    )
+                    break
 
                 proposal = self.propose_changes(
                     iteration=iteration,
@@ -531,6 +582,7 @@ class CriticOptimizer:
                     if (vector_store is not None and candidate_agent.chunking == best_agent.chunking)
                     else None
                 )
+                early_stop_info: dict[str, object] = {}
                 candidate_results, candidate_scorecard = run_evaluation_suite(
                     candidate_agent,
                     frozen_cases,
@@ -540,6 +592,15 @@ class CriticOptimizer:
                     embedding_provider=embedding_provider,
                     judge=judge,
                     iteration=iteration,
+                    judge_batch_size=self.judge_batch_size,
+                    checkpoint_dir=checkpoint_dir or store.run_dir,
+                    run_id=effective_run_id,
+                    eval_suite_sha256=eval_hash,
+                    early_stop_baseline=best_scorecard,
+                    prior_results=best_results,
+                    early_stop_out=early_stop_info,
+                    documents_dir=documents_dir,
+                    tool_registry=tool_registry,
                 )
                 scorecards.append(candidate_scorecard)
 
@@ -551,10 +612,23 @@ class CriticOptimizer:
                     scorecard=candidate_scorecard,
                 )
 
-                accepted, acceptance_reason, deltas, _regressions = self.evaluate_acceptance(
-                    best_scorecard,
-                    candidate_scorecard,
+                early_stopped = bool(early_stop_info.get("early_stopped", False))
+                early_stop_reason = str(early_stop_info.get("early_stop_reason") or "")
+                evaluated_cases_count = int(
+                    early_stop_info.get("evaluated_cases_count") or len(candidate_results)
                 )
+                early_stopped_cases = int(early_stop_info.get("early_stopped_cases") or 0)
+                requests_saved = int(early_stop_info.get("requests_saved") or 0)
+
+                if early_stopped or candidate_scorecard.is_partial:
+                    accepted = False
+                    acceptance_reason = early_stop_reason or "Early stopped on partial evaluation."
+                    deltas = {}
+                else:
+                    accepted, acceptance_reason, deltas, _regressions = self.evaluate_acceptance(
+                        best_scorecard,
+                        candidate_scorecard,
+                    )
 
                 version_before = best_agent.version
                 prev_best_scorecard = best_scorecard
@@ -566,7 +640,7 @@ class CriticOptimizer:
                     rejected_changes.append(
                         RejectedChangeRecord(
                             target_component="candidate_agent",
-                            failure_driver=observed_categories[0],
+                            failure_driver=actionable_categories[0],
                             summary=f"Candidate v{candidate_agent.version}",
                             reason=acceptance_reason,
                         )
@@ -603,6 +677,11 @@ class CriticOptimizer:
                         remaining_failed_case_ids=remaining_ids,
                         agent_version_before=version_before,
                         agent_version_after=best_agent.version,
+                        early_stopped=early_stopped,
+                        early_stop_reason=early_stop_reason,
+                        evaluated_cases_count=evaluated_cases_count,
+                        early_stopped_cases=early_stopped_cases,
+                        requests_saved=requests_saved,
                         stop_reason=iter_stop,
                     )
                 )
@@ -631,6 +710,9 @@ class CriticOptimizer:
             stop_reason=stop_reason,
             eval_suite_sha256=eval_hash,
             artifact_paths=store.paths,
+            agent_generation_requests_saved=int(
+                (baseline_agent.metadata or {}).get("agent_generation_requests_saved", 0) or 0
+            ),
         )
         store.write_final(
             history=logs,

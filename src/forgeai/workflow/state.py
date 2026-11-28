@@ -32,6 +32,9 @@ class FactoryState(TypedDict, total=False):
     """Explicit state passed across LangGraph nodes in the ForgeAI workflow."""
 
     run_id: str
+    checkpoint_dir: str
+    checkpoint_completed_cases: int
+    checkpoint_total_cases: int
     brief_input: BriefInput
     csv_rows_per_unit: int
     documents: list[DocumentInput]
@@ -61,12 +64,17 @@ class FactoryState(TypedDict, total=False):
     eval_generation_metadata: EvalGenerationMetadata
     eval_results: list[EvalCaseResult]
     eval_artifact_paths: dict[str, str]
+    evaluated_signature: tuple[str, int, str]
+    optimized_signature: tuple[str, int, str]
     baseline_agent: DeclarativeAgentDefinition
     baseline_scorecard: IterationScorecard
     baseline_results: list[EvalCaseResult]
     best_agent: DeclarativeAgentDefinition
     best_scorecard: IterationScorecard
     best_results: list[EvalCaseResult]
+    latest_candidate_agent: DeclarativeAgentDefinition
+    latest_candidate_scorecard: IterationScorecard
+    latest_candidate_results: list[EvalCaseResult]
     pending_proposal: OptimizationProposalDraft
     pending_applied_changes: list[OptimizationChange]
     pending_rejected_changes: list[RejectedChangeRecord]

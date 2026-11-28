@@ -36,6 +36,7 @@ from forgeai.optimization import (
     snapshot_eval_suite,
     verify_eval_suite_integrity,
 )
+from forgeai.optimization.report import compute_metric_deltas
 from forgeai.retrieval.embeddings import EmbeddingProvider
 from forgeai.retrieval.loaders import load_document_folder
 from forgeai.retrieval.vector_store import ChromaVectorStore
@@ -45,6 +46,7 @@ from forgeai.schemas.evaluation import (
     RejectedChangeRecord,
 )
 from forgeai.tools.registry import ToolRegistry, build_default_registry
+from forgeai.workflow.checkpoints import RunCheckpointStore
 from forgeai.workflow.state import FactoryState
 
 NodeHandler = Callable[[FactoryState], FactoryState]
@@ -156,13 +158,32 @@ def build_factory_graph(
         default_csv_rows_per_unit=cfg.csv_rows_per_unit,
     )
 
+    def _get_store(state: FactoryState) -> tuple[RunCheckpointStore, str]:
+        cp_dir = state.get("checkpoint_dir")
+        brief = state.get("brief_input")
+        run_id = state.get("run_id") or (brief.run_id if brief else None)
+        if cp_dir:
+            target = Path(cp_dir)
+            eff_id = run_id or target.name
+            return RunCheckpointStore(target.parent, target.name), eff_id
+        eff_id = run_id or f"run_{uuid4().hex[:8]}"
+        return RunCheckpointStore(cfg.artifacts_dir, eff_id), eff_id
+
     def _ingest_documents_node(state: FactoryState) -> FactoryState:
+        store, eff_id = _get_store(state)
         if state.get("documents") is not None and state.get("document_units") is not None:
-            return {}
+            updates: FactoryState = {}
+            if not state.get("run_id"):
+                updates["run_id"] = eff_id
+            if not state.get("checkpoint_dir"):
+                updates["checkpoint_dir"] = str(store.run_dir)
+            return updates
         brief = state["brief_input"]
         rows_per_unit = state.get("csv_rows_per_unit", cfg.csv_rows_per_unit)
         docs, units = load_document_folder(brief.documents_dir, csv_rows_per_unit=rows_per_unit)
-        return {
+        updates = {
+            "run_id": eff_id,
+            "checkpoint_dir": str(store.run_dir),
             "documents": docs,
             "document_units": units,
             "iteration": state.get("iteration", 0),
@@ -170,11 +191,14 @@ def build_factory_graph(
             "target_pass_rate": state.get("target_pass_rate", cfg.target_pass_rate),
             "min_eval_cases": state.get("min_eval_cases", cfg.min_eval_cases),
         }
+        store.sync_from_state({**state, **updates}, status="ingested")
+        return updates
 
     def _intake_interview_node(state: FactoryState) -> FactoryState:
         if state.get("requirements") is not None:
             return {"awaiting_user_answers": False}
 
+        store, _ = _get_store(state)
         brief = state["brief_input"]
         docs = state.get("documents") or []
         units = state.get("document_units") or []
@@ -190,17 +214,23 @@ def build_factory_graph(
                 )
             except Exception as exc:
                 raise RuntimeError(f"Requirements synthesis failed: {exc}") from exc
-            return {
+            updates: FactoryState = {
                 "requirements": requirements,
                 "awaiting_user_answers": False,
                 "interview_completed": True,
             }
+            if state.get("clarifying_questions"):
+                store.save_questions(state["clarifying_questions"])
+            store.save_requirements(requirements)
+            store.sync_from_state({**state, **updates}, status="intake_completed")
+            return updates
 
         try:
             questions = interviewer.generate_questions(brief, docs, units)
         except Exception as exc:
             raise RuntimeError(f"Intake question generation failed: {exc}") from exc
 
+        store.save_questions(questions)
         policy = state.get("unattended_policy", "stop_for_clarification")
         if policy == "proceed_with_assumptions":
             assumptions = [
@@ -219,22 +249,34 @@ def build_factory_graph(
                 raise RuntimeError(f"Unattended requirements synthesis failed: {exc}") from exc
             merged_assumptions = list(dict.fromkeys(list(requirements.assumptions) + assumptions))
             requirements = requirements.model_copy(update={"assumptions": merged_assumptions})
-            return {
+            updates = {
                 "clarifying_questions": questions,
                 "unattended_assumptions": assumptions,
                 "requirements": requirements,
                 "awaiting_user_answers": False,
                 "interview_completed": True,
             }
+            store.save_requirements(requirements)
+            store.sync_from_state({**state, **updates}, status="intake_completed")
+            return updates
 
-        return {
+        updates = {
             "clarifying_questions": questions,
             "awaiting_user_answers": True,
         }
+        store.sync_from_state({**state, **updates}, status="intake_pending")
+        return updates
 
     def _groundability_guard_node(state: FactoryState) -> FactoryState:
-        if state.get("groundability") is not None and state.get("agent_definition") is not None:
-            return {"phase2_approved": state["groundability"].can_proceed}
+        existing_gb = state.get("groundability")
+        if existing_gb is not None and (
+            existing_gb.approved_with_gaps == bool(state.get("approved_with_gaps", False))
+            or existing_gb.can_proceed
+        ):
+            return {
+                "phase2_approved": existing_gb.can_proceed,
+                "phase3_status": "ready" if existing_gb.can_proceed else "blocked_by_groundability",
+            }
         requirements = state.get("requirements")
         if requirements is None:
             raise ValueError("Groundability Guard requires `requirements` in state.")
@@ -250,11 +292,18 @@ def build_factory_graph(
             )
         except Exception as exc:
             raise RuntimeError(f"Groundability check failed: {exc}") from exc
-        return {
+        store, _ = _get_store(state)
+        updates: FactoryState = {
             "groundability": report,
             "phase2_approved": report.can_proceed,
             "phase3_status": "ready" if report.can_proceed else "blocked_by_groundability",
         }
+        store.save_groundability(report)
+        store.sync_from_state(
+            {**state, **updates},
+            status="groundability_completed" if report.can_proceed else "groundability_blocked",
+        )
+        return updates
 
     def _generate_agent_node(state: FactoryState) -> FactoryState:
         if state.get("agent_definition") is not None:
@@ -268,6 +317,7 @@ def build_factory_graph(
                 "Cannot generate agent: groundability approval is missing or blocked."
             )
 
+        store, eff_id = _get_store(state)
         docs = state.get("documents") or []
         units = state.get("document_units") or []
         brief = state.get("brief_input")
@@ -282,29 +332,40 @@ def build_factory_graph(
                 docs,
                 units,
                 tool_registry=active_registry,
-                run_id=state.get("run_id"),
+                run_id=eff_id,
             )
+            store.save_agent(definition)
             artifact_path = save_agent_definition(definition, cfg.artifacts_dir)
         except GroundabilityApprovalError:
             raise
         except Exception as exc:
             raise RuntimeError(f"Declarative agent generation failed: {exc}") from exc
 
-        return {
+        updates: FactoryState = {
             "agent_definition": definition,
             "agent_artifact_path": str(artifact_path),
             "phase3_status": "completed",
         }
+        store.sync_from_state({**state, **updates}, status="agent_generated")
+        return updates
 
     def _generate_evals_node(state: FactoryState) -> FactoryState:
+        store, _ = _get_store(state)
         min_cases = state.get("min_eval_cases", cfg.min_eval_cases)
         existing_cases = state.get("eval_cases")
         if existing_cases is not None and len(existing_cases) >= min_cases:
             updates: FactoryState = {}
-            if not state.get("eval_suite_sha256"):
+            digest = state.get("eval_suite_sha256")
+            if not digest:
                 frozen, digest = snapshot_eval_suite(existing_cases)
                 updates["eval_cases"] = frozen
                 updates["eval_suite_sha256"] = digest
+                cases_to_save = frozen
+            else:
+                cases_to_save = existing_cases
+            if not (store.run_dir / "eval_cases.json").exists():
+                store.save_eval_cases(cases_to_save, digest)
+                store.sync_from_state({**state, **updates}, status="eval_generated")
             return updates
 
         requirements = state.get("requirements")
@@ -329,11 +390,14 @@ def build_factory_graph(
             raise RuntimeError(f"Evaluation generation failed: {exc}") from exc
 
         frozen, digest = snapshot_eval_suite(cases)
-        return {
+        store.save_eval_cases(frozen, digest)
+        updates = {
             "eval_cases": frozen,
             "eval_suite_sha256": digest,
             "eval_generation_metadata": meta,
         }
+        store.sync_from_state({**state, **updates}, status="eval_generated")
+        return updates
 
     def _ensure_opt_store(state: FactoryState, agent_id: str) -> tuple[Path, dict[str, str]]:
         existing_dir = state.get("optimization_run_dir")
@@ -362,6 +426,16 @@ def build_factory_graph(
             eval_hash = existing_hash
         else:
             frozen_cases, eval_hash = snapshot_eval_suite(eval_cases)
+
+        store, eff_id = _get_store(state)
+
+        # Avoid re-running completed optimization iteration on resume
+        if (
+            iteration >= 1
+            and state.get("pending_proposal") is None
+            and len(state.get("optimization_logs") or []) >= iteration
+        ):
+            return {}
 
         # Avoid re-running baseline when resuming from Phase 4 into Phase 5 optimization
         if (
@@ -402,6 +476,13 @@ def build_factory_graph(
             else None
         )
 
+        store.sync_from_state({**state, "eval_suite_sha256": eval_hash}, status=f"evaluating_iter_{iteration}")
+        brief = state.get("brief_input")
+        docs_dir = brief.documents_dir if brief is not None else None
+        prev_best_agent = state.get("best_agent") or state.get("baseline_agent") or agent_def
+        prev_best_scorecard = state.get("best_scorecard")
+        prev_best_results = state.get("best_results") or []
+        early_stop_info: dict[str, object] = {}
         try:
             results, scorecard = run_evaluation_suite(
                 agent_def,
@@ -411,6 +492,15 @@ def build_factory_graph(
                 vector_store=active_store,
                 embedding_provider=embedding_provider,
                 iteration=iteration,
+                judge_batch_size=cfg.judge_batch_size,
+                checkpoint_dir=store.run_dir,
+                run_id=eff_id,
+                eval_suite_sha256=eval_hash,
+                early_stop_baseline=prev_best_scorecard if iteration >= 1 else None,
+                prior_results=prev_best_results if iteration >= 1 else None,
+                early_stop_out=early_stop_info if iteration >= 1 else None,
+                documents_dir=docs_dir,
+                tool_registry=tool_registry,
             )
             artifact_paths = save_evaluation_artifacts(
                 run_label=state.get("run_id") or agent_def.agent_id,
@@ -425,11 +515,23 @@ def build_factory_graph(
 
         scorecards = list(state.get("scorecards") or [])
         scorecards.append(scorecard)
+        store.save_evaluation_outputs(
+            iteration=iteration,
+            agent=agent_def,
+            results=results,
+            scorecard=scorecard,
+            all_scorecards=scorecards,
+            proposal=state.get("pending_proposal"),
+        )
         updates: FactoryState = {
+            "run_id": eff_id,
+            "checkpoint_dir": str(store.run_dir),
             "eval_cases": frozen_cases,
             "eval_suite_sha256": eval_hash,
             "eval_results": results,
             "scorecards": scorecards,
+            "evaluated_signature": (agent_def.agent_id, agent_def.version, eval_hash),
+            "pending_proposal": None,
             "eval_artifact_paths": {
                 "cases_path": str(artifact_paths.cases_path),
                 "results_path": str(artifact_paths.results_path),
@@ -446,6 +548,9 @@ def build_factory_graph(
             updates["best_agent"] = agent_def
             updates["best_scorecard"] = scorecard
             updates["best_results"] = results
+            updates["latest_candidate_agent"] = agent_def
+            updates["latest_candidate_scorecard"] = scorecard
+            updates["latest_candidate_results"] = results
             if not state.get("stop_after_phase4"):
                 run_dir, opt_paths = _ensure_opt_store(state, agent_def.agent_id)
                 _write_json_x(run_dir / "baseline_agent.json", agent_def.model_dump_json(indent=2))
@@ -463,6 +568,7 @@ def build_factory_graph(
                 )
                 updates["optimization_run_dir"] = str(run_dir)
                 updates["optimization_artifact_paths"] = opt_paths
+            store.sync_from_state({**state, **updates}, status="evaluated_iter_0")
             return updates
 
         # Iteration >= 1: compare candidate against retained best agent
@@ -475,10 +581,21 @@ def build_factory_graph(
         observed_cats = list(state.get("pending_observed_categories") or [])
         failed_ids = list(state.get("pending_failed_ids") or [])
 
-        accepted, acceptance_reason, deltas, _regressions = CriticOptimizer.evaluate_acceptance(
-            prev_best_scorecard,
-            scorecard,
-        )
+        early_stopped = bool(early_stop_info.get("early_stopped", False))
+        early_stop_reason = str(early_stop_info.get("early_stop_reason") or "")
+        evaluated_cases_count = int(early_stop_info.get("evaluated_cases_count") or len(results))
+        early_stopped_cases = int(early_stop_info.get("early_stopped_cases") or 0)
+        requests_saved = int(early_stop_info.get("requests_saved") or 0)
+
+        if early_stopped or scorecard.is_partial:
+            accepted = False
+            acceptance_reason = early_stop_reason or "Early stopped on partial evaluation."
+            deltas = {}
+        else:
+            accepted, acceptance_reason, deltas, _regressions = CriticOptimizer.evaluate_acceptance(
+                prev_best_scorecard,
+                scorecard,
+            )
         if accepted:
             new_best_agent = agent_def
             new_best_scorecard = scorecard
@@ -556,6 +673,11 @@ def build_factory_graph(
                 remaining_failed_case_ids=[r.case_id for r in new_best_results if not r.passed],
                 agent_version_before=prev_best_agent.version,
                 agent_version_after=new_best_agent.version,
+                early_stopped=early_stopped,
+                early_stop_reason=early_stop_reason,
+                evaluated_cases_count=evaluated_cases_count,
+                early_stopped_cases=early_stopped_cases,
+                requests_saved=requests_saved,
                 stop_reason=iter_stop,
             )
         )
@@ -566,6 +688,9 @@ def build_factory_graph(
                 "best_agent": new_best_agent,
                 "best_scorecard": new_best_scorecard,
                 "best_results": new_best_results,
+                "latest_candidate_agent": agent_def,
+                "latest_candidate_scorecard": scorecard,
+                "latest_candidate_results": results,
                 "eval_results": new_best_results,
                 "optimization_logs": logs,
                 "optimization_run_dir": str(run_dir),
@@ -573,6 +698,8 @@ def build_factory_graph(
                 "stop_reason": iter_stop or state.get("stop_reason", ""),
             }
         )
+        store.save_optimization_history(logs)
+        store.sync_from_state({**state, **updates}, status=f"evaluated_iter_{iteration}")
         return updates
 
     def _optimize_agent_node(state: FactoryState) -> FactoryState:
@@ -602,6 +729,7 @@ def build_factory_graph(
             target_pass_rate=state.get("target_pass_rate", cfg.target_pass_rate),
             gemini_model=(cfg.gemini_model or "gemini-3.8-flash"),
             embedding_model=cfg.embedding_model,
+            judge_batch_size=cfg.judge_batch_size,
         )
         grouped = optimizer.group_failures(best_results)
         if not grouped:
@@ -664,15 +792,21 @@ def build_factory_graph(
                     stop_reason="no_actionable_proposal",
                 )
             )
-            return {
+            store, _ = _get_store(state)
+            opt_halt_updates = {
                 "iteration": next_iter,
                 "agent_definition": best_agent,
                 "optimization_logs": logs,
                 "optimization_halted": True,
                 "stop_reason": "no_actionable_proposal",
             }
+            store.save_optimization_history(logs)
+            store.sync_from_state({**state, **opt_halt_updates}, status="optimization_halted")
+            return opt_halt_updates
 
-        return {
+        store, _ = _get_store(state)
+        store.save_agent(candidate_agent)
+        opt_updates = {
             "iteration": next_iter,
             "agent_definition": candidate_agent,
             "pending_proposal": proposal,
@@ -682,8 +816,13 @@ def build_factory_graph(
             "pending_failed_ids": failed_ids,
             "optimization_halted": False,
         }
+        store.sync_from_state({**state, **opt_updates}, status=f"proposed_iter_{next_iter}")
+        return opt_updates
 
     def _build_report_node(state: FactoryState) -> FactoryState:
+        if state.get("final_report") is not None:
+            return {"phase5_status": "completed"}
+        store, _ = _get_store(state)
         eval_cases = state.get("eval_cases") or []
         if state.get("eval_suite_sha256") and eval_cases:
             verify_eval_suite_integrity(eval_cases, state["eval_suite_sha256"])
@@ -762,18 +901,35 @@ def build_factory_graph(
             stop_reason=stop_reason,
             eval_suite_sha256=state.get("eval_suite_sha256", ""),
             artifact_paths=opt_paths,
+            agent_generation_requests_saved=int(
+                ((state.get("baseline_agent") or best_agent).metadata or {}).get(
+                    "agent_generation_requests_saved", 0
+                )
+                or 0
+            ),
         )
         _write_json_x(run_dir / "final_report.json", report.model_dump_json(indent=2))
-
-        return {
+        store.save_final_outputs(
+            final_agent=best_agent,
+            final_report=report,
+            history=logs,
+        )
+        final_updates: FactoryState = {
             "agent_definition": best_agent,
             "eval_results": final_results,
             "final_report": report,
             "stop_reason": stop_reason,
+            "optimized_signature": (
+                best_agent.agent_id,
+                best_agent.version,
+                state.get("eval_suite_sha256", ""),
+            ),
             "optimization_run_dir": str(run_dir),
             "optimization_artifact_paths": opt_paths,
             "phase5_status": "completed",
         }
+        store.sync_from_state({**state, **final_updates}, status="completed")
+        return final_updates
 
     handlers = node_handlers or {}
     graph = StateGraph(FactoryState)

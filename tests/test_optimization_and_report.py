@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +33,8 @@ from forgeai.schemas import (
     GroundabilityReport,
     GroundabilityVerdict,
     IterationScorecard,
+    JudgeBatchItemVerdict,
+    JudgeLLMBatchVerdict,
     JudgeLLMVerdict,
     OptimizationProposalDraft,
     OutputContract,
@@ -430,6 +433,42 @@ def test_optimization_early_stop_with_hash_and_artifacts(tmp_path: Path) -> None
                     )
                 ],
             )
+        if schema is JudgeLLMBatchVerdict:
+            m = re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = json.loads(m.group(1)) if m else []
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=True,
+                        grounding_score=1.0,
+                        correctness_score=1.0,
+                        addresses_question=True,
+                        refusal_appropriate=True,
+                        reasoning="Grounded and accurate.",
+                    )
+                    for cid in cids
+                ]
+            )
+        if schema is JudgeLLMBatchVerdict:
+            m = re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = json.loads(m.group(1)) if m else []
+            eval_calls["count"] += 1
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=(idx != 0),
+                        grounding_score=0.3 if idx == 0 else 1.0,
+                        correctness_score=0.3 if idx == 0 else 1.0,
+                        addresses_question=(idx != 0),
+                        refusal_appropriate=True,
+                        hallucinated_claims=["Unsupported figure"] if idx == 0 else [],
+                        reasoning="Hallucinated on first case." if idx == 0 else "Good.",
+                    )
+                    for idx, cid in enumerate(cids)
+                ]
+            )
         if schema is JudgeLLMVerdict:
             return JudgeLLMVerdict(
                 grounded=True,
@@ -531,6 +570,43 @@ def test_regression_rejected_best_agent_retained_and_hard_max_three_iterations(
                     )
                 ],
             )
+        if schema is JudgeLLMBatchVerdict:
+            m = re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = json.loads(m.group(1)) if m else []
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=False,
+                        grounding_score=0.2,
+                        correctness_score=0.2,
+                        addresses_question=False,
+                        refusal_appropriate=False,
+                        hallucinated_claims=["Regressed claim"],
+                        reasoning="Candidate regressed.",
+                    )
+                    for cid in cids
+                ]
+            )
+        if schema is JudgeLLMBatchVerdict:
+            m = re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = json.loads(m.group(1)) if m else []
+            eval_calls["count"] += 1
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=(idx != 0),
+                        grounding_score=0.3 if idx == 0 else 1.0,
+                        correctness_score=0.3 if idx == 0 else 1.0,
+                        addresses_question=(idx != 0),
+                        refusal_appropriate=True,
+                        hallucinated_claims=["Unsupported figure"] if idx == 0 else [],
+                        reasoning="Hallucinated on first case." if idx == 0 else "Good.",
+                    )
+                    for idx, cid in enumerate(cids)
+                ]
+            )
         if schema is JudgeLLMVerdict:
             # Simulate regression: candidate hallucinates on everything -> grounded=False
             return JudgeLLMVerdict(
@@ -588,6 +664,25 @@ def test_no_actionable_proposal_and_langgraph_phase5_integration(tmp_path: Path)
     eval_calls = {"count": 0}
 
     def structured_fn(_prompt: str, schema: type[Any]) -> Any:
+        if schema is JudgeLLMBatchVerdict:
+            m = re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = json.loads(m.group(1)) if m else []
+            eval_calls["count"] += 1
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=(idx != 0),
+                        grounding_score=0.3 if idx == 0 else 1.0,
+                        correctness_score=0.3 if idx == 0 else 1.0,
+                        addresses_question=(idx != 0),
+                        refusal_appropriate=True,
+                        hallucinated_claims=["Unsupported figure"] if idx == 0 else [],
+                        reasoning="Hallucinated on first case." if idx == 0 else "Good.",
+                    )
+                    for idx, cid in enumerate(cids)
+                ]
+            )
         if schema is JudgeLLMVerdict:
             eval_calls["count"] += 1
             if eval_calls["count"] == 1:

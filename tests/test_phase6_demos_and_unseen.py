@@ -13,6 +13,7 @@ from forgeai.optimization import verify_eval_suite_integrity
 from forgeai.retrieval import ChromaVectorStore, chunk_units, load_document_folder
 from forgeai.runner import DeclarativeAgentRunner
 from forgeai.schemas import (
+    AgentGenerationDraft,
     BriefInput,
     ClarifyingQuestion,
     ClarifyingQuestionBatch,
@@ -27,6 +28,8 @@ from forgeai.schemas import (
     GroundabilityReport,
     GroundabilityVerdict,
     IterationScorecard,
+    JudgeBatchItemVerdict,
+    JudgeLLMBatchVerdict,
     JudgeLLMVerdict,
     OutputContract,
     RetrievalStrategyDraft,
@@ -230,24 +233,25 @@ def test_unseen_brief_unrelated_domain_and_unattended_policies(tmp_path: Path) -
                     ),
                 ],
             )
-        if schema is SystemPromptDraft:
-            return SystemPromptDraft(
-                agent_name="Lab Calibration Assistant",
-                description="Answers calibration schedule and instrument status questions for lab technicians.",
-                domain_summary="Laboratory equipment calibration reference.",
-                system_prompt="Answer strictly from calibration SOP and CSV records with citations.",
+        if schema is AgentGenerationDraft:
+            return AgentGenerationDraft(
+                system_prompt_draft=SystemPromptDraft(
+                    agent_name="Lab Calibration Assistant",
+                    description="Answers calibration schedule and instrument status questions for lab technicians.",
+                    domain_summary="Laboratory equipment calibration reference.",
+                    system_prompt="Answer strictly from calibration SOP and CSV records with citations.",
+                ),
+                retrieval_strategy_draft=RetrievalStrategyDraft(
+                    chunk_size=500, chunk_overlap=80, top_k=4
+                ),
+                tool_selection_draft=ToolSelectionDraft(
+                    selected_tools=[
+                        ToolSelectionDraftItem(name="retrieve_documents", purpose="Search SOP.", reason="Grounded SOP lookup."),
+                        ToolSelectionDraftItem(name="inspect_csv_records", purpose="Lookup asset rows.", reason="Corpus has CSV asset log."),
+                    ]
+                ),
+                output_contract=OutputContract(response_format="markdown", require_citations=True),
             )
-        if schema is RetrievalStrategyDraft:
-            return RetrievalStrategyDraft(chunk_size=500, chunk_overlap=80, top_k=4)
-        if schema is ToolSelectionDraft:
-            return ToolSelectionDraft(
-                selected_tools=[
-                    ToolSelectionDraftItem(name="retrieve_documents", purpose="Search SOP.", reason="Grounded SOP lookup."),
-                    ToolSelectionDraftItem(name="inspect_csv_records", purpose="Lookup asset rows.", reason="Corpus has CSV asset log."),
-                ]
-            )
-        if schema is OutputContract:
-            return OutputContract(response_format="markdown", require_citations=True)
         if schema is EvalSuiteDraft:
             distinct_questions = [
                 ("lab_1", "How often must micropipettes be calibrated according to the SOP?", ["90"], ["calibration_sop.md"]),
@@ -276,6 +280,26 @@ def test_unseen_brief_unrelated_domain_and_unattended_policies(tmp_path: Path) -
                 )
             ]
             return EvalSuiteDraft(cases=cases)
+        if schema is JudgeLLMBatchVerdict:
+            import json as _json
+            import re as _re
+
+            m = _re.search(r"expected case_ids=(\[[^\n]+\])", _prompt)
+            cids = _json.loads(m.group(1)) if m else []
+            return JudgeLLMBatchVerdict(
+                verdicts=[
+                    JudgeBatchItemVerdict(
+                        case_id=cid,
+                        grounded=True,
+                        grounding_score=1.0,
+                        correctness_score=1.0,
+                        addresses_question=True,
+                        refusal_appropriate=True,
+                        reasoning="Accurate and grounded.",
+                    )
+                    for cid in cids
+                ]
+            )
         if schema is JudgeLLMVerdict:
             return JudgeLLMVerdict(
                 grounded=True,

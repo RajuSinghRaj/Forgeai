@@ -1,6 +1,7 @@
 """Public Pydantic data contracts for ForgeAI."""
 
 from forgeai.schemas.agent import (
+    AgentGenerationDraft,
     ChunkingConfig,
     DeclarativeAgentDefinition,
     MetadataFilterEntry,
@@ -23,6 +24,8 @@ from forgeai.schemas.evaluation import (
     FactoryRunReport,
     FailureClassification,
     IterationScorecard,
+    JudgeBatchItemVerdict,
+    JudgeLLMBatchVerdict,
     JudgeLLMVerdict,
     OptimizationChange,
     OptimizationIterationLog,
@@ -45,6 +48,7 @@ from forgeai.schemas.intake import (
 )
 
 __all__ = [
+    "AgentGenerationDraft",
     "AllowedOptimizationTarget",
     "BriefInput",
     "ChunkingConfig",

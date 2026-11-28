@@ -67,6 +67,59 @@ def _evaluate_math_expression(expression: str) -> float:
     return _safe_eval_math_node(tree)
 
 
+def resolve_contained_csv_path(documents_dir: Path, file_name: str) -> Path:
+    """Resolve `file_name` inside `documents_dir`, blocking traversal, prefix bypasses, and external symlinks."""
+    if not file_name or not str(file_name).strip():
+        raise ValueError("file_name must not be empty.")
+    rel = Path(file_name)
+    if rel.is_absolute():
+        raise ValueError("file_name must stay within documents_dir.")
+
+    root = Path(documents_dir).resolve(strict=True)
+    raw_candidate = root / rel
+
+    # Reject any symlinked path component or final file whose resolved target escapes `root`.
+    target = raw_candidate.resolve(strict=False)
+    if target == root or not target.is_relative_to(root):
+        raise ValueError("file_name must stay within documents_dir.")
+    if raw_candidate.is_symlink():
+        resolved_link = raw_candidate.resolve(strict=False)
+        if resolved_link == root or not resolved_link.is_relative_to(root):
+            raise ValueError("file_name must stay within documents_dir.")
+
+    if not target.exists() or not target.is_file() or target.suffix.lower() != ".csv":
+        raise FileNotFoundError(f"CSV file not found: {file_name}")
+    return target
+
+
+def count_csv_rows_contained(
+    documents_dir: Path,
+    file_name: str,
+    *,
+    column: str | None = None,
+    contains: str | None = None,
+) -> tuple[int, int]:
+    """Stream-count `(total_nonempty_rows, matching_rows)` inside `documents_dir` safely."""
+    target = resolve_contained_csv_path(documents_dir, file_name)
+    needle = (contains or "").strip().lower()
+    total_rows = 0
+    matched_rows = 0
+    with target.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            if not any((v or "").strip() for v in row.values()):
+                continue
+            total_rows += 1
+            if not needle:
+                matched_rows += 1
+            elif column:
+                if needle in (row.get(column) or "").lower():
+                    matched_rows += 1
+            elif any(needle in (val or "").lower() for val in row.values()):
+                matched_rows += 1
+    return total_rows, matched_rows
+
+
 @dataclass(frozen=True)
 class ToolDefinition:
     """Metadata and callable implementation for a registered agent tool."""
@@ -80,8 +133,9 @@ class ToolDefinition:
 class ToolRegistry:
     """Lookup and execution container for domain-independent agent tools."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, documents_dir: Path | None = None) -> None:
         self._tools: dict[str, ToolDefinition] = {}
+        self.documents_dir: Path | None = Path(documents_dir) if documents_dir is not None else None
 
     def register(self, tool: ToolDefinition) -> None:
         if not tool.name.strip():
@@ -119,7 +173,7 @@ def build_default_registry(
     documents_dir: Path | None = None,
 ) -> ToolRegistry:
     """Register standard domain-independent tools for generated agents."""
-    registry = ToolRegistry()
+    registry = ToolRegistry(documents_dir=documents_dir)
 
     def retrieve_documents(query: str, top_k: int = 5) -> list[dict[str, Any]]:
         if vector_store is None:
@@ -132,17 +186,15 @@ def build_default_registry(
         column: str | None = None,
         contains: str | None = None,
         limit: int = 20,
+        offset: int = 0,
     ) -> list[dict[str, str]]:
         if documents_dir is None:
             raise RuntimeError("No documents_dir configured for inspect_csv_records.")
-        root = Path(documents_dir).resolve()
-        target = (root / file_name).resolve()
-        if not str(target).startswith(str(root)):
-            raise ValueError("file_name must stay within documents_dir.")
-        if not target.exists() or target.suffix.lower() != ".csv":
-            raise FileNotFoundError(f"CSV file not found: {file_name}")
+        target = resolve_contained_csv_path(Path(documents_dir), file_name)
 
         matches: list[dict[str, str]] = []
+        skipped = 0
+        eff_offset = max(0, int(offset))
         needle = (contains or "").strip().lower()
         with target.open("r", encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
@@ -154,6 +206,9 @@ def build_default_registry(
                 elif needle:
                     if not any(needle in (val or "").lower() for val in row.values()):
                         continue
+                if skipped < eff_offset:
+                    skipped += 1
+                    continue
                 record = {"_row": str(row_num)}
                 record.update({k: (v or "") for k, v in row.items() if k is not None})
                 matches.append(record)
@@ -173,6 +228,9 @@ def build_default_registry(
             raise FileNotFoundError(f"Document folder not found: {root}")
         entries: list[dict[str, Any]] = []
         for path in sorted(p for p in root.rglob("*") if p.is_file()):
+            resolved_path = path.resolve()
+            if not resolved_path.is_relative_to(root):
+                continue
             ext = path.suffix.lower()
             if ext not in SUPPORTED_EXTENSIONS:
                 continue
@@ -211,6 +269,7 @@ def build_default_registry(
                     "column": {"type": "string"},
                     "contains": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
+                    "offset": {"type": "integer", "minimum": 0},
                 },
                 "required": ["file_name"],
             },

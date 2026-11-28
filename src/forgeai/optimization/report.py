@@ -55,6 +55,7 @@ def build_final_report(
     stop_reason: str,
     eval_suite_sha256: str = "",
     artifact_paths: dict[str, str] | None = None,
+    agent_generation_requests_saved: int | None = None,
 ) -> FactoryRunReport:
     """Construct an evidence-backed `FactoryRunReport` without inflating scores."""
     remaining_failed = [r for r in final_results if not r.passed]
@@ -90,8 +91,20 @@ def build_final_report(
             limitations.append(
                 f"Iteration {log.iteration} candidate rejected: {log.acceptance_reason}"
             )
+        if log.early_stopped and log.early_stop_reason:
+            limitations.append(
+                f"Iteration {log.iteration} candidate early-stopped: {log.early_stop_reason}"
+            )
 
     deduped_limitations = list(dict.fromkeys(limitations))
+    early_stops = sum(1 for log in optimization_logs if log.early_stopped)
+    stopped_cases_total = sum(int(log.early_stopped_cases or 0) for log in optimization_logs)
+    requests_saved_es = sum(int(log.requests_saved or 0) for log in optimization_logs)
+    gen_saved = (
+        int(agent_generation_requests_saved)
+        if agent_generation_requests_saved is not None
+        else int((final_agent.metadata or {}).get("agent_generation_requests_saved", 0) or 0)
+    )
 
     return FactoryRunReport(
         run_id=run_id,
@@ -116,6 +129,10 @@ def build_final_report(
         eval_suite_sha256=eval_suite_sha256,
         artifact_paths=dict(artifact_paths or {}),
         honest_limitations=deduped_limitations,
+        optimization_early_stops=early_stops,
+        early_stopped_cases_total=stopped_cases_total,
+        requests_saved_early_stopping=requests_saved_es,
+        agent_generation_requests_saved=gen_saved,
         stop_reason=stop_reason,
     )
 

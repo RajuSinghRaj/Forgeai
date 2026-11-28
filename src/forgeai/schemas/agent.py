@@ -133,3 +133,12 @@ class ToolSelectionDraft(BaseModel):
 
     selected_tools: list[ToolSelectionDraftItem] = Field(default_factory=list)
     least_privilege_notes: str = Field(default="")
+
+
+class AgentGenerationDraft(BaseModel):
+    """Composite structured Gemini output combining all Phase 3 agent components."""
+
+    system_prompt_draft: SystemPromptDraft
+    retrieval_strategy_draft: RetrievalStrategyDraft
+    tool_selection_draft: ToolSelectionDraft
+    output_contract: OutputContract
